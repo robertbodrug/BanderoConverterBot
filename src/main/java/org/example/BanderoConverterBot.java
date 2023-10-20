@@ -3,20 +3,10 @@ package org.example;
 import Services.KeyboardService.KeyboardManager;
 import Services.MessageService.MessageManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
-import org.telegram.telegrambots.meta.api.methods.CopyMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.util.List;
 
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
@@ -28,49 +18,45 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             Message msg = update.getMessage();
-            String txt = msg.getText();
-            Long chatId = msg.getChatId();
             if (msg.isCommand()) {
-                switch (txt) {
-                    case "/settings": {
-                        try {
-                            execute(MessageManager.MessageBuilder(chatId, "settings"));
-                        } catch (TelegramApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                    }
-                    case "/languages": {
-                        try {
-                            execute(MessageManager.MessageBuilder(chatId, "languages"));
-                        } catch (TelegramApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                    }
-                    case "/start": {
-                        try {
-                            execute(MessageManager.MessageBuilder(chatId, "start"));
-                        } catch (TelegramApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                    }
-
-
+                try {
+                    ComandResponser(msg);
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
                 }
+
             }
-//        }else if(update.hasCallbackQuery()){
-//            CallbackQuery cq = update.getCallbackQuery();
-//            try {
-//                buttonTap(cq.getMessage().getChatId(), cq.getId(), cq.getData(),cq.getMessage().getMessageId());
-//            } catch (TelegramApiException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        } else if (update.hasCallbackQuery()) {
+            CallbackQuery cq = update.getCallbackQuery();
+            try {
+                System.out.println(cq.getData());
+                CallbackResponser(cq);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
+    private void ComandResponser(Message msg) throws TelegramApiException {
+       execute(MessageManager.MessageBuilder(msg.getChatId(),msg.getText().replace("/","")));
+    }
+    private void CallbackResponser(CallbackQuery cq) throws TelegramApiException {
+        String text = cq.getData();
+        Long id = Long.valueOf(cq.getId());
+        Integer messageId = cq.getMessage().getMessageId();
 
+        switch (text) {
+            case "settings", "decimalp_places","banks","currency","notification","languages": {
+                execute(MessageManager.MessageTextEditer(id, text, messageId));
+                execute(KeyboardManager.KeyboardEditer(id, text, messageId));
+                break;
+            }
+            default:execute(MessageManager.MessageBuilder(id,text));
+
+
+
+        }
+    }
 
 
     @Override

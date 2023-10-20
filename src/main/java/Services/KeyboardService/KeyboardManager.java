@@ -15,17 +15,18 @@ public class KeyboardManager {
 
         EditMessageReplyMarkup newKb = EditMessageReplyMarkup.builder()
                 .chatId(id)
-                .messageId(msgId).build();
+                .messageId(msgId)
+                .build();
         newKb.setReplyMarkup(KeyboardBuilder(data));
         return newKb;
     }
     public static InlineKeyboardMarkup KeyboardBuilder(String data) throws TelegramApiException {
 
-        switch (data){
-            case "settings" : return SETTINGS_KEYBOARD;
-            case "languages": return LANGUAGES_KEYBOARD;
-            default: return MAIN_KEYBOARD;
-        }
+        return switch (data) {
+            case "settings" -> SETTINGS_KEYBOARD;
+            case "languages" -> LANGUAGES_KEYBOARD;
+            default -> MAIN_KEYBOARD;
+        };
 
     }
 

@@ -22,29 +22,20 @@ public class MessageManager {
     }
     public static EditMessageText MessageTextEditer(Long id, String data,int msgId) throws TelegramApiException {
 
-        EditMessageText newSm = EditMessageText.builder()
+        return EditMessageText.builder()
                 .chatId(id)
                 .messageId(msgId)
                 .text(getTextForMessage(data))
                 .build();
-        newSm.setReplyMarkup(KeyboardManager.KeyboardBuilder(data));
-
-        return newSm;
     }
 
 public static String getTextForMessage(String data){
-    switch (data){
-        case "settings" : {
-            return "Налаштування";
-        }
-        case "languages" : {
-            return "Виберіть мову: ";
-        }
-        case "doJob" : {
-            return "Курс: logic";
-        }
-        default:return "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
-}
+    return switch (data) {
+        case "settings" -> "Налаштування";
+        case "languages" -> "Виберіть мову: ";
+        case "doJob" -> "Курс: logic";
+        default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
+    };
 }
 
 
