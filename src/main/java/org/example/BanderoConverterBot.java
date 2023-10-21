@@ -28,6 +28,14 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 }
 
             }
+            else {
+                try {
+                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "jopa"));
+                } catch (TelegramApiException e) {
+                    throw new RuntimeException(e);
+
+                }
+            }
         } else if (update.hasCallbackQuery()) {
             CallbackQuery cq = update.getCallbackQuery();
             try {
@@ -36,9 +44,11 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }
+        }
 
         }
-    }
+
+
     private void ComandResponser(Message msg) throws TelegramApiException {
        execute(MessageManager.MessageBuilder(msg.getChatId(),msg.getText().replace("/","")));
     }

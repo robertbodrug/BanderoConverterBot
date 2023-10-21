@@ -15,12 +15,11 @@ import java.util.List;
 public class MessageManager {
     public static SendMessage MessageBuilder(Long id, String data) throws TelegramApiException {
 
-       SendMessage newSm = SendMessage.builder()
+        return SendMessage.builder()
                .chatId(id)
                .text(getTextForMessage(data))
+               .replyMarkup(KeyboardManager.KeyboardBuilder(data))
                .build();
-           newSm.setReplyMarkup(KeyboardManager.KeyboardBuilder(data));
-       return newSm;
     }
     public static EditMessageText MessageTextEditer(Long id, String data,int msgId) throws TelegramApiException {
 
