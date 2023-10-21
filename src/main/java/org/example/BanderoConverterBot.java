@@ -3,6 +3,8 @@ package org.example;
 import Services.KeyboardService.KeyboardManager;
 import Services.MessageService.MessageManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -42,19 +44,19 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
     }
     private void CallbackResponser(CallbackQuery cq) throws TelegramApiException {
         String text = cq.getData();
-        Long id = Long.valueOf(cq.getId());
+        Long id = cq.getMessage().getChatId();
         Integer messageId = cq.getMessage().getMessageId();
 
+        AnswerCallbackQuery close = AnswerCallbackQuery.builder()
+                .callbackQueryId(cq.getId()).build();
+        execute(close);
         switch (text) {
-            case "settings", "decimalp_places","banks","currency","notification","languages": {
+            case "settings", "decimalp_places", "banks", "currency", "notification", "languages": {
                 execute(MessageManager.MessageTextEditer(id, text, messageId));
-                execute(KeyboardManager.KeyboardEditer(id, text, messageId));
                 break;
             }
-            default:execute(MessageManager.MessageBuilder(id,text));
-
-
-
+            default:
+                execute(MessageManager.MessageBuilder(id, text));
         }
     }
 
