@@ -28,7 +28,7 @@ public class KeyboardManager {
             case "languages" -> LANGUAGES_KEYBOARD;
 //            case "doJob" -> "Заглушка";
 //            case "banks" -> "Заглушка";
-//            case "decimalp_places" -> "Заглушка";
+            case "decimalp_places","0","1","2","3","4" -> DECIMAL_PLACES_KEYBOARD;
 //            case "currency" -> "Заглушка";
 //            case "notification" -> "Заглушка";
 //            case "english" -> "Заглушка";

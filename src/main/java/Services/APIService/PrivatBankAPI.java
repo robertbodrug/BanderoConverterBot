@@ -11,8 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PrivatBankAPI {
-    public static double[] getExchangeRatePrivat( String currencyName) {
-        double[] rate ={0.0,0.0};
+    public static String[] getExchangeRatePrivat( String currencyName) {
+        String[] rate ={"---","---"};
         try {
             URL url = new URL("https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -32,8 +32,8 @@ public class PrivatBankAPI {
                     JsonObject currency = element.getAsJsonObject();
                     String currencyCode = currency.get("ccy").getAsString();
                     if (currencyCode.equals(currencyName)) {
-                        rate[0]= currency.get("buy").getAsDouble();
-                        rate[1]= currency.get("sale").getAsDouble();
+                        rate[0]= currency.get("buy").getAsString();
+                        rate[1]= currency.get("sale").getAsString();
                     }
                 }
             } else {

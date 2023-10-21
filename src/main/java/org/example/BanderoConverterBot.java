@@ -1,7 +1,9 @@
 package org.example;
 
+import Services.APIService.PrivatBankAPI;
 import Services.KeyboardService.KeyboardManager;
 import Services.MessageService.MessageManager;
+import Services.SettingsService.SettingsManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -13,7 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
-
+ SettingsManager SM = new SettingsManager();
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -30,7 +32,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             }
             else {
                 try {
-                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "jopa"));
+                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "jopa",SM.getSettings()));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
 
@@ -50,24 +52,32 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
 
 
     private void ComandResponser(Message msg) throws TelegramApiException {
-       execute(MessageManager.MessageBuilder(msg.getChatId(),msg.getText().replace("/","")));
+       execute(MessageManager.MessageBuilder(msg.getChatId(),msg.getText().replace("/",""),SM.getSettings()));
     }
     private void CallbackResponser(CallbackQuery cq) throws TelegramApiException {
         String text = cq.getData();
         Long id = cq.getMessage().getChatId();
-        Integer messageId = cq.getMessage().getMessageId();
 
         AnswerCallbackQuery close = AnswerCallbackQuery.builder()
                 .callbackQueryId(cq.getId()).build();
         execute(close);
-        switch (text) {
-            case "settings", "decimalp_places", "banks", "currency", "notification", "languages": {
-                execute(MessageManager.MessageTextEditer(id, text, messageId));
-                break;
-            }
-            default:
-                execute(MessageManager.MessageBuilder(id, text));
-        }
+         switch (text) {
+            case "doJob" ->execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
+            case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "0","1","2","3","4"-> {
+                 SM.getSettings().setDecimalPlaces(Integer.parseInt(text));
+                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+             }
+                 case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "notification" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "english" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "ukrainian" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
+
+         };
+
     }
 
 
