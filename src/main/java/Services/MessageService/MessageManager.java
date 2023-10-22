@@ -14,7 +14,7 @@ public class MessageManager {
         return SendMessage.builder()
                .chatId(id)
                .text(getTextForMessage(data,s))
-               .replyMarkup(KeyboardManager.KeyboardBuilder(data))
+               .replyMarkup(KeyboardManager.KeyboardBuilder(data,s))
                .build();
     }
     public static EditMessageText MessageTextEditer(Long id, String data,int msgId,Settings s) throws TelegramApiException {
@@ -23,7 +23,7 @@ public class MessageManager {
                 .chatId(id)
                 .messageId(msgId)
                 .text(getTextForMessage(data,s))
-                .replyMarkup(KeyboardManager.KeyboardBuilder(data))
+                .replyMarkup(KeyboardManager.KeyboardBuilder(data,s))
                 .build();
     }
 
