@@ -66,15 +66,17 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-             case "0","1","2","3","4"-> {
+            case "0","1","2","3","4"-> {
                  SM.getSettings().setDecimalPlaces(Integer.parseInt(text));
                  execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
              }
                  case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "notification" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "english" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "ukrainian" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
+            case "ukrainian" -> {
+                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+            }
+                default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
 
          };
 

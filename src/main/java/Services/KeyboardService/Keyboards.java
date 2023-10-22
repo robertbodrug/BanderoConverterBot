@@ -9,10 +9,10 @@ public class Keyboards {
 
     public static final InlineKeyboardMarkup LANGUAGES_KEYBOARD = InlineKeyboardMarkup.builder()
             .keyboardRow(List.of(InlineKeyboardButton.builder()
-                    .text("Українська").callbackData("ukrainian")
+                    .text("Українська").callbackData("uk")
                     .build()))
             .keyboardRow(List.of(InlineKeyboardButton.builder()
-                    .text("English").callbackData("english")
+                    .text("English").callbackData("en")
                     .build()))
             .build();
 
