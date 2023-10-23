@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.List;
 
 public enum Keyboards {
+    //Додати клавіатуру і перевизначити getKeyboard
     MAIN_KEYBOARD{
         @Override
         public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {

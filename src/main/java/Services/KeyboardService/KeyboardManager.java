@@ -23,7 +23,7 @@ public class KeyboardManager {
     }
 
     public static InlineKeyboardMarkup KeyboardBuilder(String data, Settings s) throws TelegramApiException {
-
+        //Додати виклик клавіатури
         return switch (data) {
             case "settings" -> SETTINGS_KEYBOARD.getKeyboard(data,s);
             case "languages" -> LANGUAGES_KEYBOARD.getKeyboard(data,s);

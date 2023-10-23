@@ -26,7 +26,7 @@ public class MessageManager {
                 .replyMarkup(KeyboardManager.KeyboardBuilder(data,s))
                 .build();
     }
-
+//Додати текст для повідомлення
 public static String getTextForMessage(String data, Settings s){
     return switch (data) {
         case "doJob" -> doJob(s);

@@ -20,8 +20,6 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
  SettingsManager SM = new SettingsManager();
     @Override
     public void onUpdateReceived(Update update) {
-
-
         if (update.hasMessage() && update.getMessage().hasText()) {
             Message msg = update.getMessage();
             if (msg.isCommand()) {
@@ -69,7 +67,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "0","1","2","3","4"-> {
-                 SM.getSettings().setDecimalPlaces(Integer.parseInt(text));
+                 SM.setDecimalPlaces(Integer.parseInt(text));
                  execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
              }
                  case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
