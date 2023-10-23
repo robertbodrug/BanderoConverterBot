@@ -43,6 +43,7 @@ public static String getTextForMessage(String data, Settings s){
     };
 }
  private static String doJob(Settings s){
+
      String[] cutRateUSD = PrivatBankAPI.getExchangeRatePrivat("USD");
      cutRateUSD[0]= cutRateUSD[0].substring(0, cutRateUSD[0].indexOf(".")+ s.getDecimalPlaces()+1);
      cutRateUSD[1]= cutRateUSD[1].substring(0, cutRateUSD[1].indexOf(".")+ s.getDecimalPlaces()+1);

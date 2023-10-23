@@ -3,6 +3,8 @@ package Services.SettingsService;
 //Класс для зберігання змінних налаштувань
 public class Settings {
     private int decimalPlaces;
+
+
     public Settings() {
         decimalPlaces = 2;
     }

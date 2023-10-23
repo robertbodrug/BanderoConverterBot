@@ -15,6 +15,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
+
+
  SettingsManager SM = new SettingsManager();
     @Override
     public void onUpdateReceived(Update update) {
@@ -62,6 +64,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 .callbackQueryId(cq.getId()).build();
         execute(close);
          switch (text) {
+             //добавити метод SM і виконати Message
              case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
