@@ -32,7 +32,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             }
             else {
                 try {
-                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "jopa",SM.getSettings()));
+                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "culo",SM.getSettings()));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
 
@@ -62,8 +62,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 .callbackQueryId(cq.getId()).build();
         execute(close);
          switch (text) {
-            case "doJob" ->execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
-            case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "0","1","2","3","4"-> {
@@ -72,8 +71,8 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
              }
                  case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "notification" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "english" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "ukrainian" -> {
+            case "en" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "uk" -> {
                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
             }
                 default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));

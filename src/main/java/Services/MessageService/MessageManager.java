@@ -30,7 +30,7 @@ public class MessageManager {
 public static String getTextForMessage(String data, Settings s){
     return switch (data) {
         case "doJob" -> doJob(s);
-        case "settings" -> "НАЛАШТУВАННЯ";
+        case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
         case "banks" -> "Заглушка";
         case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
@@ -38,15 +38,20 @@ public static String getTextForMessage(String data, Settings s){
         case "notification" -> "Заглушка";
         case "en" -> "Заглушка";
         case "uk" -> "Заглушка";
-
+        case "joke" ->"Прикол ";
         default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
     };
 }
  private static String doJob(Settings s){
-     String[] cutRate = PrivatBankAPI.getExchangeRatePrivat("USD");
-     cutRate[0]=cutRate[0].substring(0,cutRate[0].indexOf(".")+ s.getDecimalPlaces()+1);
-     cutRate[1]=cutRate[1].substring(0,cutRate[1].indexOf(".")+ s.getDecimalPlaces()+1);
-     return "Курс: UAH/USD \nКупівля : "+cutRate[0]+"\nПродажа : "+cutRate[1];
+     String[] cutRateUSD = PrivatBankAPI.getExchangeRatePrivat("USD");
+     cutRateUSD[0]= cutRateUSD[0].substring(0, cutRateUSD[0].indexOf(".")+ s.getDecimalPlaces()+1);
+     cutRateUSD[1]= cutRateUSD[1].substring(0, cutRateUSD[1].indexOf(".")+ s.getDecimalPlaces()+1);
+     String msgUSD = "Курс: UAH/USD \nКупівля : "+ cutRateUSD[0]+"\nПродажа : "+ cutRateUSD[1]+"\n-----------------------------\n";
+     String[] cutRateEUR = PrivatBankAPI.getExchangeRatePrivat("EUR");
+     cutRateEUR[0]= cutRateEUR[0].substring(0, cutRateEUR[0].indexOf(".")+ s.getDecimalPlaces()+1);
+     cutRateEUR[1]= cutRateEUR[1].substring(0, cutRateEUR[1].indexOf(".")+ s.getDecimalPlaces()+1);
+     String msgEUR ="Курс: UAH/EUR \nКупівля : "+ cutRateEUR[0]+"\nПродажа : "+ cutRateEUR[1];
+     return msgUSD+msgEUR;
 
  }
 
