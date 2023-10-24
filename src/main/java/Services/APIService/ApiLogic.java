@@ -1,5 +1,4 @@
 package Services.APIService;
-import Services.SettingsService.Settings;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -13,7 +12,7 @@ import java.net.URL;
 
 
 public class ApiLogic {
-    public ExchangeRate getExchangeRate(Settings s) {
+    public JsonArray getExchangeRate(ApiSettings s) {
         try {
             URL url = new URL(s.getURL());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -29,21 +28,7 @@ public class ApiLogic {
                 }
                 in.close();
                 String respBody = resp.toString();
-                JsonArray currencyData = JsonParser.parseString(respBody).getAsJsonArray();
-                ExchangeRate exchangeRate = new ExchangeRate();
-                exchangeRate.setBank(s.getBank());
-                for (JsonElement element : currencyData) {
-                    JsonObject currency = element.getAsJsonObject();
-                    if (s.getBank().equals("privat") ? s.getCurrency().equals(currency.get(s.getCurrencyTargetForJson()).getAsString()) :
-                            Integer.parseInt(s.getCurrency()) == currency.get(s.getCurrencyTargetForJson()).getAsInt()) {
-                        exchangeRate.setCurrency(currency.get(s.getCurrencyTargetForJson()).getAsString());
-                        exchangeRate.setBuy(currency.get(s.getBuyTargetForJson()).getAsString());
-                        if (s.getSellTargetForJson() != null) {
-                            exchangeRate.setSell(currency.get(s.getSellTargetForJson()).getAsString());
-                        }
-                    }
-                }
-                return exchangeRate;
+                return JsonParser.parseString(respBody).getAsJsonArray();
             } else {
                 System.out.println("Error: " + respCode);
             }

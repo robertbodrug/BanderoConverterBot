@@ -31,9 +31,9 @@ public static String getTextForMessage(String data, Settings s){
         case "doJob" -> doJob(s);
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
-        case "banks" -> s.getBank() + "\nОберіть банк: ";
+        case "banks" -> s.getBanks() + "\nОберіть банк: ";
         case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency" -> s.getCurrency() + "\nОберіть валюту: ";
+        case "currency" -> s.getCurrencies() + "\nОберіть валюту: ";
         case "notification" -> "Заглушка";
         case "en" -> "Заглушка";
         case "uk" -> "Заглушка";
