@@ -76,6 +76,40 @@ public enum Keyboards {
                         .build();
 
         }
+    },
+    BANKS_KEYBOARD{
+        @Override
+        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Приват банк")
+                            .callbackData("privat")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Монобанк")
+                            .callbackData("mono")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Національний банк України")
+                            .callbackData("nbu")
+                            .build()))
+                    .build();
+        }
+    },
+    CURRENCY_KEYBOARD{
+        @Override
+        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Долар США")
+                            .callbackData("USD")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Євро")
+                            .callbackData("EUR")
+                            .build()))
+                    .build();
+        }
     };
     public InlineKeyboardMarkup getKeyboard(String data,Settings s ){
      return InlineKeyboardMarkup.builder()

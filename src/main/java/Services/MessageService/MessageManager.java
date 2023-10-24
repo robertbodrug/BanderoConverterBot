@@ -1,6 +1,5 @@
 package Services.MessageService;
 
-import Services.APIService.PrivatBankAPI;
 import Services.KeyboardService.KeyboardManager;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -32,9 +31,9 @@ public static String getTextForMessage(String data, Settings s){
         case "doJob" -> doJob(s);
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
-        case "banks" -> "Заглушка";
+        case "banks" -> s.getBank() + "\nОберіть банк: ";
         case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency" -> "Заглушка";
+        case "currency" -> s.getCurrency() + "\nОберіть валюту: ";
         case "notification" -> "Заглушка";
         case "en" -> "Заглушка";
         case "uk" -> "Заглушка";
@@ -44,7 +43,7 @@ public static String getTextForMessage(String data, Settings s){
 }
  private static String doJob(Settings s){
 
-     String[] cutRateUSD = PrivatBankAPI.getExchangeRatePrivat("USD");
+     /*String[] cutRateUSD = PrivatBankAPI.getExchangeRatePrivat("USD");
      cutRateUSD[0]= cutRateUSD[0].substring(0, cutRateUSD[0].indexOf(".")+ s.getDecimalPlaces()+1);
      cutRateUSD[1]= cutRateUSD[1].substring(0, cutRateUSD[1].indexOf(".")+ s.getDecimalPlaces()+1);
      String msgUSD = "Курс: UAH/USD \nКупівля : "+ cutRateUSD[0]+"\nПродажа : "+ cutRateUSD[1]+"\n-----------------------------\n";
@@ -53,8 +52,8 @@ public static String getTextForMessage(String data, Settings s){
      cutRateEUR[1]= cutRateEUR[1].substring(0, cutRateEUR[1].indexOf(".")+ s.getDecimalPlaces()+1);
      String msgEUR ="Курс: UAH/EUR \nКупівля : "+ cutRateEUR[0]+"\nПродажа : "+ cutRateEUR[1];
      return msgUSD+msgEUR;
-
- }
+     }
+*/
 
 }
 

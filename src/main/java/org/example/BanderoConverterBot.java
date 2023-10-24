@@ -1,12 +1,9 @@
 package org.example;
 
-import Services.APIService.PrivatBankAPI;
-import Services.KeyboardService.KeyboardManager;
 import Services.MessageService.MessageManager;
 import Services.SettingsService.SettingsManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -68,11 +65,19 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
              case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "privat", "mono", "nbu" -> {
+                SM.getSettings().setBank(text);
+                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+            }
             case "0","1","2","3","4"-> {
                  SM.getSettings().setDecimalPlaces(Integer.parseInt(text));
                  execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
              }
-                 case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            case "USD", "EUR" -> {
+                SM.getSettings().setCurrency(text);
+                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+            }
             case "notification" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "en" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "uk" -> {
