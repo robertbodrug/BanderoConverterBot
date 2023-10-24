@@ -41,7 +41,7 @@ public static String getTextForMessage(String data, Settings s){
         default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
     };
 }
- private static String doJob(Settings s){
+ private static String doJob(Settings s) {
 
      /*String[] cutRateUSD = PrivatBankAPI.getExchangeRatePrivat("USD");
      cutRateUSD[0]= cutRateUSD[0].substring(0, cutRateUSD[0].indexOf(".")+ s.getDecimalPlaces()+1);
@@ -54,6 +54,7 @@ public static String getTextForMessage(String data, Settings s){
      return msgUSD+msgEUR;
      }
 */
-
+     return null;
+ }
 }
 
