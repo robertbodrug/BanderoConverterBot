@@ -58,7 +58,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
          switch (text) {
              //добавити метод SM і виконати Message
              case "start" -> execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
-             case "settings","decimalp_places","back" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "settings","decimal_places","back" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
              case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "privat", "mono", "nbu" -> {

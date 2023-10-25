@@ -19,10 +19,10 @@ public enum Keyboards {
         public InlineKeyboardMarkup getKeyboard(Settings s ) {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Отримати курс").callbackData("doJob")
+                            .text(s.getLanguage().getDoJobButton()).callbackData("doJob")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Налаштування").callbackData("settings")
+                            .text(s.getLanguage().getSettingsMenu().).callbackData("settings")
                             .build()))
                     .build();
 
@@ -51,7 +51,7 @@ public enum Keyboards {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Кількість знаків після коми")
-                            .callbackData("decimalp_places")
+                            .callbackData("decimal_places")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Банки")

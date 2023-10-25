@@ -45,7 +45,7 @@ public static String getTextForMessage(String data, Settings s){
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
         case "banks","privat","mono","nbu"-> s.getBanks() + "\nОберіть банк: ";
-        case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
+        case "decimal_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
         case "currency","USD","EUR" -> s.getCurrencies() + "\nОберіть валюту: ";
         case "notification" -> "Заглушка";
         case "en" -> "Заглушка";

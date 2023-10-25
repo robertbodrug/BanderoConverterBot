@@ -3,6 +3,12 @@ package Services.SettingsService;
 //Класс для зберігання змінних налаштувань
 public class Settings {
 
+    private LanguageData language = Languages.ukrainianLanguage;
+
+    public LanguageData getLanguage() {
+        return language;
+    }
+
     private int decimalPlaces;
     private StringBuilder banks = new StringBuilder();
     private StringBuilder currencies = new StringBuilder();
