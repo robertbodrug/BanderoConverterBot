@@ -2,9 +2,17 @@ package Services.SettingsService;
 
 //Класс для зберігання змінних налаштувань
 public class Settings {
+
     private int decimalPlaces;
     private StringBuilder banks = new StringBuilder();
     private StringBuilder currencies = new StringBuilder();
+    public Settings() {
+
+        decimalPlaces = 2;
+    }
+    public Settings(byte decimalPlaces) {
+        this.decimalPlaces = decimalPlaces;
+    }
 
     public void addBanks(String bank) {
          banks.append(" ").append(bank);
@@ -22,12 +30,7 @@ public class Settings {
         return currencies.toString().trim();
     }
 
-    public Settings() {
-        decimalPlaces = 2;
-    }
-    public Settings(byte decimalPlaces) {
-        this.decimalPlaces = decimalPlaces;
-    }
+
 
     public void setDecimalPlaces(int decimalPlaces) {
         this.decimalPlaces = decimalPlaces;

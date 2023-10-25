@@ -29,7 +29,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             }
             else {
                 try {
-                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), "culo",SM.getSettings()));
+                    execute(MessageManager.MessageBuilder(update.getMessage().getChatId(), msg.getText(),SM.getSettings()));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
 
@@ -55,13 +55,11 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
         String text = cq.getData();
         Long id = cq.getMessage().getChatId();
 
-        AnswerCallbackQuery close = AnswerCallbackQuery.builder()
-                .callbackQueryId(cq.getId()).build();
-        execute(close);
          switch (text) {
              //добавити метод SM і виконати Message
-             case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "start" -> execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
+             case "settings","decimalp_places","back" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "privat", "mono", "nbu" -> {
                 SM.getSettings().addBanks(text);
@@ -70,8 +68,8 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "0","1","2","3","4"-> {
                  SM.setDecimalPlaces(Integer.parseInt(text));
                  execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
-             }
-             case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+            }
+            case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "USD", "EUR" -> {
                 SM.getSettings().addCurrencies(text);
                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
@@ -81,9 +79,12 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "uk" -> {
                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
             }
-                default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
-
+                default ->   execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
          };
+
+        AnswerCallbackQuery close = AnswerCallbackQuery.builder()
+                .callbackQueryId(cq.getId()).build();
+        execute(close);
 
     }
 

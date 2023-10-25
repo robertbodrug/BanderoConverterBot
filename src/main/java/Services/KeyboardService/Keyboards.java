@@ -10,13 +10,27 @@ public enum Keyboards {
     //Додати клавіатуру і перевизначити getKeyboard
     MAIN_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
-            return super.getKeyboard( data,s);
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            return super.getKeyboard(s);
+        }
+    },
+    BUSINESS_KEYBOARD{
+        @Override
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Отримати курс").callbackData("doJob")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Налаштування").callbackData("settings")
+                            .build()))
+                    .build();
+
         }
     },
     LANGUAGES_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Українська 🇺🇦").callbackData("uk")
@@ -24,12 +38,16 @@ public enum Keyboards {
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("English \uD83C\uDDEC\uD83C\uDDE7").callbackData("en")
                             .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("back")
+                            .build()))
                     .build();
         }
     },
     SETTINGS_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Кількість знаків після коми")
@@ -53,14 +71,14 @@ public enum Keyboards {
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Назад")
-                            .callbackData("culo")
+                            .callbackData("back")
                             .build()))
                     .build();
         }
     },
     DECIMAL_PLACES_KEYBOARD {
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
              InlineKeyboardMarkup.InlineKeyboardMarkupBuilder builder = InlineKeyboardMarkup.builder();
                 int i = 0;
                 while (i < 5) {
@@ -72,7 +90,7 @@ public enum Keyboards {
                 }
                 return   builder.keyboardRow(List.of(InlineKeyboardButton.builder()
                                 .text("Назад")
-                                .callbackData("settings")
+                                .callbackData("back")
                                 .build()))
                         .build();
 
@@ -80,7 +98,7 @@ public enum Keyboards {
     },
     BANKS_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Приват банк")
@@ -94,12 +112,16 @@ public enum Keyboards {
                             .text("Національний банк України")
                             .callbackData("nbu")
                             .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("back")
+                            .build()))
                     .build();
         }
     },
     CURRENCY_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Долар США")
@@ -109,10 +131,14 @@ public enum Keyboards {
                             .text("Євро")
                             .callbackData("EUR")
                             .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("back")
+                            .build()))
                     .build();
         }
     };
-    public InlineKeyboardMarkup getKeyboard(String data,Settings s ){
+    public InlineKeyboardMarkup getKeyboard(Settings s ){
      return InlineKeyboardMarkup.builder()
                 .keyboardRow(List.of(InlineKeyboardButton.builder()
                         .text("Отримати курс").callbackData("doJob")

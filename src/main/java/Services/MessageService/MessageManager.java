@@ -6,8 +6,13 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Queue;
+
 
 public class MessageManager {
+    private static ArrayDeque<String> lastCallBack = new ArrayDeque<>();
     public static SendMessage MessageBuilder(Long id, String data,Settings s) throws TelegramApiException {
 
         return SendMessage.builder()
@@ -17,7 +22,14 @@ public class MessageManager {
                .build();
     }
     public static EditMessageText MessageTextEditer(Long id, String data,int msgId,Settings s) throws TelegramApiException {
+        if(data.equals("back")){
+            String callback = lastCallBack.poll();
+            if( callback!=null)
+                data=callback;
 
+        }else {
+            lastCallBack.add(data);
+        }
         return EditMessageText.builder()
                 .chatId(id)
                 .messageId(msgId)
@@ -28,17 +40,18 @@ public class MessageManager {
 //Додати текст для повідомлення
 public static String getTextForMessage(String data, Settings s){
     return switch (data) {
+        case "start"-> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
         case "doJob" -> doJob(s);
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
-        case "banks" -> s.getBanks() + "\nОберіть банк: ";
+        case "banks","privat","mono","nbu"-> s.getBanks() + "\nОберіть банк: ";
         case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency" -> s.getCurrencies() + "\nОберіть валюту: ";
+        case "currency","USD","EUR" -> s.getCurrencies() + "\nОберіть валюту: ";
         case "notification" -> "Заглушка";
         case "en" -> "Заглушка";
         case "uk" -> "Заглушка";
         case "joke" ->"Прикол ";
-        default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
+        default -> "Cкористайся мною: ";
     };
 }
  private static String doJob(Settings s) {
@@ -54,7 +67,7 @@ public static String getTextForMessage(String data, Settings s){
      return msgUSD+msgEUR;
      }
 */
-     return null;
+     return "Job";
  }
 }
 
