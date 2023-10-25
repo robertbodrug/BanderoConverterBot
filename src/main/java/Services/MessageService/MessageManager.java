@@ -1,5 +1,6 @@
 package Services.MessageService;
 
+import Services.APIService.ExchangeRateManeger;
 import Services.KeyboardService.KeyboardManager;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -31,10 +32,10 @@ public static String getTextForMessage(String data, Settings s){
         case "doJob" -> doJob(s);
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
-        case "banks" -> s.getBanks() + "\nОберіть банк: ";
+        case "banks","privat","mono","nbu" -> "\nОберіть банк: ";
         case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency" -> s.getCurrencies() + "\nОберіть валюту: ";
-        case "notification" -> "Заглушка";
+        case "currency","USD","EUR" -> "\nОберіть валюту: ";
+        case "notification" ->  "\nОберіть час на який буде приходити оповіщення: ";
         case "en" -> "Заглушка";
         case "uk" -> "Заглушка";
         case "joke" ->"Прикол ";
@@ -54,7 +55,7 @@ public static String getTextForMessage(String data, Settings s){
      return msgUSD+msgEUR;
      }
 */
-     return null;
+     return new ExchangeRateManeger().getExchangeRates(s);
  }
 }
 

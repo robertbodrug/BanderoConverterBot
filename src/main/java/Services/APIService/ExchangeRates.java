@@ -17,6 +17,7 @@ public class ExchangeRates {
     private List<ExchangeRate> privat = new ArrayList<>();
     private List<ExchangeRate> mono = new ArrayList<>();
     private List<ExchangeRate> nbu = new ArrayList<>();
+    private JsonArray jsonArray = getExchangeRate(settings);
     public JsonArray getExchangeRate(ApiSettings s) {
         try {
             URL url = new URL(s.getURL());
@@ -42,10 +43,12 @@ public class ExchangeRates {
         }
         return null;
     }
-    public void update(String bank) {
-        String[] currencies = new String[] {"USD", "EUR"};
+    public void update() {
+        String[] currencies = new String[]{"USD", "EUR"};
+        String[] banks = new String[]{"privat", "mono", "nbu"};
         settings = new ApiSettings();
-        settings.setBank(bank);
+        for (String bank : banks) {
+            settings.setBank(bank);
             for (JsonElement element : getExchangeRate(settings)) {
                 for (String currency : currencies) {
                     settings.setCurrency(currency);
@@ -59,10 +62,10 @@ public class ExchangeRates {
                         if (settings.getSellTargetForJson() != null) {
                             exchangeRate.setSell(object.get(settings.getSellTargetForJson()).getAsString());
                         }
-                        if(bank.equals("privat")){
+                        if (bank.equals("privat")) {
                             exchangeRate.setCurrency(currency);
                             privat.add(exchangeRate);
-                        } else if(bank.equals("mono")) {
+                        } else if (bank.equals("mono")) {
                             exchangeRate.setCurrency(currency);
                             mono.add(exchangeRate);
                         } else {
@@ -71,19 +74,20 @@ public class ExchangeRates {
                         }
                     }
                 }
+            }
         }
     }
-    public List<ExchangeRate> getPrivat() {
-        update("privat");
+    public List<ExchangeRate> getPrivat () {
+        update();
         return privat;
     }
 
-    public List<ExchangeRate> getMono() {
-        update("mono");
+    public List<ExchangeRate> getMono () {
+        update();
         return mono;
     }
-    public List<ExchangeRate> getNbu() {
-        update("nbu");
+    public List<ExchangeRate> getNbu () {
+        update();
         return nbu;
     }
 }

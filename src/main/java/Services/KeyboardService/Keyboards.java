@@ -94,6 +94,10 @@ public enum Keyboards {
                             .text("Національний банк України")
                             .callbackData("nbu")
                             .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("settings")
+                            .build()))
                     .build();
         }
     },
@@ -108,6 +112,45 @@ public enum Keyboards {
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text("Євро")
                             .callbackData("EUR")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("settings")
+                            .build()))
+                    .build();
+        }
+    },
+    NOTIFICATION_KEYBOARD{
+        @Override
+        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+            return InlineKeyboardMarkup.builder()
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Введіть час у форматі HH:mm")
+                            .callbackData("30хв")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("")
+                            .callbackData("30хв")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("1год")
+                            .callbackData("EUR")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("2год")
+                            .callbackData("EUR")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("5год")
+                            .callbackData("EUR")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("1год")
+                            .callbackData("EUR")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("settings")
                             .build()))
                     .build();
         }

@@ -1,25 +1,36 @@
 package Services.SettingsService;
 
+import java.util.HashSet;
+import java.util.Set;
+
 //Класс для зберігання змінних налаштувань
 public class Settings {
     private int decimalPlaces;
-    private StringBuilder banks = new StringBuilder();
-    private StringBuilder currencies = new StringBuilder();
+    private Set<String> banks = new HashSet<>();
+    private Set<String> currencies = new HashSet<>();
+    private Set<String> timeForNotification = new HashSet<>();
 
     public void addBanks(String bank) {
-         banks.append(" ").append(bank);
+         banks.add(bank);
     }
 
-    public String getBanks() {
-        return banks.toString().trim();
+    public Set<String> getBanks() {
+        return banks;
     }
 
     public void addCurrencies(String currency) {
-        currencies.append(" ").append(currency);
+        currencies.add(currency);
     }
 
-    public String getCurrencies() {
-        return currencies.toString().trim();
+    public Set<String> getCurrencies() {
+        return currencies;
+    }
+    public void addTimeForNotification(String time) {
+        timeForNotification.add(time);
+    }
+
+    public Set<String> getTimeForNotification() {
+        return timeForNotification;
     }
 
     public Settings() {
