@@ -1,7 +1,7 @@
 package Services.SettingsService;
 
 public class LanguageData {
-    static class SettingsMenu {
+     public static class SettingsMenu {
         private final String settingsText;
         private final String settingsButton;
         private final String banksButton;
@@ -87,7 +87,7 @@ public class LanguageData {
 
 
     }
-    public class CurrencyMenu{
+    public static class CurrencyMenu{
         private final String  currencyText;
         private final String firstCurrencyButton;
         private final String secondCurrencyButton;
@@ -117,14 +117,14 @@ public class LanguageData {
 
 
     }
-    private String startText;
-    private String doJobButton;
-    private String jokeButton;
+    private final String startText;
+    private final String doJobButton;
+    private final String jokeButton;
 
     private SettingsMenu settingsMenu;
-    private BanksMenu banksMenu;
-    private CurrencyMenu currencyMenu;
-    //, SettingsMenu settingsMenu, BanksMenu banksMenu, CurrencyMenu currencyMenu
+    private final BanksMenu banksMenu;
+    private final CurrencyMenu currencyMenu;
+
 
     public String getStartText() {
         return startText;
@@ -150,12 +150,12 @@ public class LanguageData {
         return currencyMenu;
     }
 
-    public LanguageData(String startText, String doJobButton, String jokeButton) {
+    public LanguageData(String startText, String doJobButton, String jokeButton, SettingsMenu settingsMenu, BanksMenu banksMenu, CurrencyMenu currencyMenu) {
         this.startText = startText;
         this.doJobButton = doJobButton;
         this.jokeButton = jokeButton;
-//        this.settingsMenu = settingsMenu;
-//        this.banksMenu = banksMenu;
-//        this.currencyMenu = currencyMenu;
+        this.settingsMenu = settingsMenu;
+        this.banksMenu = banksMenu;
+        this.currencyMenu = currencyMenu;
     }
 }

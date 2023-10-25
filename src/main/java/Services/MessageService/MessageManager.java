@@ -1,6 +1,7 @@
 package Services.MessageService;
 
 import Services.KeyboardService.KeyboardManager;
+import Services.SettingsService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -39,17 +40,16 @@ public class MessageManager {
     }
 //Додати текст для повідомлення
 public static String getTextForMessage(String data, Settings s){
+    LanguageData language = s.getLanguage();
     return switch (data) {
-        case "start"-> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
+        case "start"-> language.getStartText();
         case "doJob" -> doJob(s);
-        case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
-        case "languages" -> "Виберіть мову: ";
-        case "banks","privat","mono","nbu"-> s.getBanks() + "\nОберіть банк: ";
-        case "decimal_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency","USD","EUR" -> s.getCurrencies() + "\nОберіть валюту: ";
+        case "settings" -> language.getSettingsMenu().getSettingsText();
+        case "languages","uk","en" -> "Виберіть мову: ";
+        case "banks","privat","mono","nbu"-> s.getBanks() ;
+        case "decimal_places","0","1","2","3","4" -> +s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
+        case "currency","USD","EUR" -> language.getCurrencyMenu().getCurrencyText()+s.getCurrencies() ;
         case "notification" -> "Заглушка";
-        case "en" -> "Заглушка";
-        case "uk" -> "Заглушка";
         case "joke" ->"Прикол ";
         default -> "Cкористайся мною: ";
     };

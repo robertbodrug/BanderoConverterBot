@@ -25,7 +25,7 @@ public class KeyboardManager {
             case "languages" -> LANGUAGES_KEYBOARD.getKeyboard(s);
             case "doJob" -> BUSINESS_KEYBOARD.getKeyboard(s);
             case "banks","privat","mono","nbu" -> BANKS_KEYBOARD.getKeyboard(s);
-            case "decimalp_places","0","1","2","3","4"->DECIMAL_PLACES_KEYBOARD.getKeyboard(s);
+            case "decimal_places","0","1","2","3","4"->DECIMAL_PLACES_KEYBOARD.getKeyboard(s);
             case "currency","USD","EUR" -> CURRENCY_KEYBOARD.getKeyboard(s);
 //          case "notification" -> "Заглушка";
 //          case "en" -> "Заглушка";
