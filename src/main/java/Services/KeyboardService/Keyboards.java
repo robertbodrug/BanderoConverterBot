@@ -35,16 +35,19 @@ public enum Keyboards {
     LANGUAGES_KEYBOARD{
         @Override
         public InlineKeyboardMarkup getKeyboard(Settings s ) {
-            LanguageData language = s.getLanguage().getLanguageMenu();
+            LanguageData.LanguageMenu language = s.getLanguage().getLanguageMenu();
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("").callbackData("uk")
+                            .text(LanguageData.LanguageMenu.firstLanguageButton).callbackData("uk")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text().callbackData("en")
+                            .text(LanguageData.LanguageMenu.secondLanguageButton).callbackData("en")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
+                            .text(LanguageData.LanguageMenu.thirdLanguageButton).callbackData("it")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text(s.getLanguage().getBackButton())
                             .callbackData("back")
                             .build()))
                     .build();
@@ -158,7 +161,8 @@ public enum Keyboards {
                 .keyboardRow(List.of(InlineKeyboardButton.builder()
                         .text(language.getSettingsMenu().settingsButton())
                         .callbackData("settings")
-                        .build(),InlineKeyboardButton.builder()
+                        .build(),
+                        InlineKeyboardButton.builder()
                         .text(s.getLanguage().getJokeButton()).callbackData("joke")
                         .build()))
 

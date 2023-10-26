@@ -4,21 +4,22 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Languages {
     public static final LanguageData ukrainianLanguage = new LanguageData(
             "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!",
+            "Кількість знаків після коми : %d \nОберіть потрібну кількість : ",
             "Отримати курс",
             "Жарт",
             "Назад",
-            "Кількість знаків після коми : %d \n Оберіть потрібну кількість : ",
-            (String[]) List.of("Чому плюшевий ведмедик відмовився від десерту? Він був вже заповнений." +
+             new String[]{"Чому плюшевий ведмедик відмовився від десерту? Він був вже заповнений.",
                     "Чому футболіст так довго обідав? Тому що він думав, що не може користуватися руками.",
                     "У мами Сенді четверо дітей; Північ, Захід, Схід. Як звуть четверту дитину? Сенді, очевидно!",
                     "Чому курка перебігла майданчик? Щоб добігти до наступної дороги.",
                     "Чому ви ніколи не можете розповісти анекдот про скло? Ви можете луснути."
-            ).toArray(),
+            },
 
             new LanguageData.SettingsMenu("⚙  ---  МЕНЮ НАЛАШТУВАНЬ  ---  ⚙",
                     "Налаштування",

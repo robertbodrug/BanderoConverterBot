@@ -18,10 +18,10 @@ public class LanguageData {
                                    String thirdCurrencyButton) {
         }
     public record LanguageMenu(String LanguageText) {
-        final static String firstLanguageButton = "Українська 🇺🇦";
-        final static String secondLanguageButton = "English \uD83C\uDDEC\uD83C\uDDE7";
+            public final static String firstLanguageButton = "Українська 🇺🇦";
+        public final static String secondLanguageButton = "English \uD83C\uDDEC\uD83C\uDDE7";
         ;
-        final static String thirdLanguageButton = "Italiano \uD83C\uDDEE\uD83C\uDDF9";
+        public final static String thirdLanguageButton = "Italiano \uD83C\uDDEE\uD83C\uDDF9";
     }
 
     private final String startText;
