@@ -1,13 +1,20 @@
 package Services.APIService;
 import Services.SettingsService.Settings;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ExchangeRateManeger {
     ExchangeRates exchangeRates = new ExchangeRates();
     StringBuilder builder = new StringBuilder();
     public String getExchangeRates(Settings s) {
+        List<ExchangeRate> privat = exchangeRates.getPrivat();
+        List<ExchangeRate> mono = exchangeRates.getMono();
+        List<ExchangeRate> nbu = exchangeRates.getNbu();
         for (String bank : s.getBanks()) {
             if (bank.equals("mono")) {
-                for (ExchangeRate exchangeRate : exchangeRates.getMono()) {
+                for (ExchangeRate exchangeRate : mono) {
                     for (String currency : s.getCurrencies()) {
                         if (exchangeRate.getCurrency().equals(currency)) {
                             String result = "Курс монобанк: \n" +
@@ -22,7 +29,7 @@ public class ExchangeRateManeger {
                     }
                 }
             } else if (bank.equals("privat")) {
-                for (ExchangeRate exchangeRate : exchangeRates.getPrivat()) {
+                for (ExchangeRate exchangeRate : privat) {
                     for (String currency : s.getCurrencies()) {
                         if (exchangeRate.getCurrency().equals(currency)) {
                             String result = "Курс приват банк: \n" +
@@ -37,7 +44,7 @@ public class ExchangeRateManeger {
                     }
                 }
             } else {
-                for (ExchangeRate exchangeRate : exchangeRates.getNbu()) {
+                for (ExchangeRate exchangeRate : nbu) {
                     for (String currency : s.getCurrencies()) {
                         if (exchangeRate.getCurrency().equals(currency)) {
                             String result = "Курс національного банку України: \n" +
