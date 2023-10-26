@@ -7,6 +7,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+<<<<<<< Updated upstream
+=======
+import java.util.ArrayDeque;
+
+>>>>>>> Stashed changes
 
 public class MessageManager {
     public static SendMessage MessageBuilder(Long id, String data,Settings s) throws TelegramApiException {
@@ -30,6 +35,7 @@ public class MessageManager {
 public static String getTextForMessage(String data, Settings s){
     return switch (data) {
         case "doJob" -> doJob(s);
+<<<<<<< Updated upstream
         case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
         case "languages" -> "Виберіть мову: ";
         case "banks","privat","mono","nbu","clearBanks" -> "\nОберіть банк: ";
@@ -40,6 +46,19 @@ public static String getTextForMessage(String data, Settings s){
         case "uk" -> "Заглушка";
         case "joke" ->"Прикол ";
         default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
+=======
+        case "settings" -> language.getSettingsMenu().settingsText();
+        case "languages","uk","en" -> language.getLanguageMenu().LanguageText();
+        case "banks","privat","mono","nbu"-> s.getBanks() ;
+        case "decimal_places","0","1","2","3","4" ->language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
+        case "currency","USD","EUR" -> language.getCurrencyMenu().currencyText()+s.getCurrencies() ;
+        case "notification" -> "Заглушка";
+        case "joke" ->{
+            String[] jokes = language.getJokes();
+            yield jokes[(int) (Math.random()*56 % jokes.length)];
+        };
+        default -> "Cкористайся мною: ";
+>>>>>>> Stashed changes
     };
 }
  private static String doJob(Settings s) {

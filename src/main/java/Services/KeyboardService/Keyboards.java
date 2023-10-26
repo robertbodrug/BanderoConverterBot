@@ -1,5 +1,6 @@
 package Services.KeyboardService;
 
+import Services.SettingsService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -10,57 +11,82 @@ public enum Keyboards {
     //Додати клавіатуру і перевизначити getKeyboard
     MAIN_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
-            return super.getKeyboard( data,s);
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            return super.getKeyboard(s);
+        }
+    },
+    BUSINESS_KEYBOARD{
+        @Override
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData language = s.getLanguage();
+            return InlineKeyboardMarkup.builder()
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text(language.getDoJobButton())
+                            .callbackData("doJob")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text(language.getSettingsMenu().settingsButton())
+                            .callbackData("settings")
+                            .build()))
+                    .build();
+
         }
     },
     LANGUAGES_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData language = s.getLanguage().getLanguageMenu();
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Українська 🇺🇦").callbackData("uk")
+                            .text("").callbackData("uk")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("English \uD83C\uDDEC\uD83C\uDDE7").callbackData("en")
+                            .text().callbackData("en")
+                            .build()))
+                    .keyboardRow(List.of(InlineKeyboardButton.builder()
+                            .text("Назад")
+                            .callbackData("back")
                             .build()))
                     .build();
         }
     },
     SETTINGS_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData.SettingsMenu language = s.getLanguage().getSettingsMenu();
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Кількість знаків після коми")
-                            .callbackData("decimalp_places")
+                            .text(language.decimalPlacesButton())
+                            .callbackData("decimal_places")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Банки")
+                            .text(language.banksButton())
                             .callbackData("banks")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Валюти")
+                            .text(language.currencyButton())
                             .callbackData("currency")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Час оповіщень")
+                            .text(language.notificationButton())
                             .callbackData("notification")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Мова")
+                            .text(language.languagesButton())
                             .callbackData("languages")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
-                            .callbackData("culo")
+                            .text(s.getLanguage().getBackButton())
+                            .callbackData("back")
                             .build()))
                     .build();
         }
     },
     DECIMAL_PLACES_KEYBOARD {
+
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData language = s.getLanguage();
              InlineKeyboardMarkup.InlineKeyboardMarkupBuilder builder = InlineKeyboardMarkup.builder();
                 int i = 0;
                 while (i < 5) {
@@ -71,8 +97,8 @@ public enum Keyboards {
                     i++;
                 }
                 return   builder.keyboardRow(List.of(InlineKeyboardButton.builder()
-                                .text("Назад")
-                                .callbackData("settings")
+                                .text(language.getBackButton())
+                                .callbackData("back")
                                 .build()))
                         .build();
 
@@ -80,98 +106,60 @@ public enum Keyboards {
     },
     BANKS_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData.BanksMenu language = s.getLanguage().getBanksMenu();
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Приват банк")
+                            .text(language.firstBankButton())
                             .callbackData("privat")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Монобанк")
+                            .text(language.secondBankButton())
                             .callbackData("mono")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Національний банк України")
+                            .text(language.thirdBankButton())
                             .callbackData("nbu")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Очистити налаштуваня банків")
-                            .callbackData("clearBanks")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
-                            .callbackData("settings")
+                            .text(s.getLanguage().getBackButton())
+                            .callbackData("back")
                             .build()))
                     .build();
         }
     },
     CURRENCY_KEYBOARD{
         @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
+        public InlineKeyboardMarkup getKeyboard(Settings s ) {
+            LanguageData.CurrencyMenu language = s.getLanguage().getCurrencyMenu();
+
             return InlineKeyboardMarkup.builder()
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Долар США")
+                            .text(language.firstCurrencyButton())
                             .callbackData("USD")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Євро")
+                            .text(language.secondCurrencyButton())
                             .callbackData("EUR")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Очистити налаштуваня валют")
-                            .callbackData("clearCurrencies")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
-                            .callbackData("settings")
-                            .build()))
-                    .build();
-        }
-    },
-    NOTIFICATION_KEYBOARD{
-        @Override
-        public InlineKeyboardMarkup getKeyboard(String data,Settings s ) {
-            return InlineKeyboardMarkup.builder()
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Введіть час у форматі HH:mm")
-                            .callbackData("30хв")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("")
-                            .callbackData("30хв")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("1год")
-                            .callbackData("EUR")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("2год")
-                            .callbackData("EUR")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("5год")
-                            .callbackData("EUR")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("1год")
-                            .callbackData("EUR")
-                            .build()))
-                    .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
-                            .callbackData("settings")
+                            .text(s.getLanguage().getBackButton())
+                            .callbackData("back")
                             .build()))
                     .build();
         }
     };
-    public InlineKeyboardMarkup getKeyboard(String data,Settings s ){
-     return InlineKeyboardMarkup.builder()
+    public InlineKeyboardMarkup getKeyboard(Settings s ){
+        LanguageData language = s.getLanguage();
+        return InlineKeyboardMarkup.builder()
                 .keyboardRow(List.of(InlineKeyboardButton.builder()
-                        .text("Отримати курс").callbackData("doJob")
+                        .text(language.getDoJobButton()).callbackData("doJob")
                         .build()))
                 .keyboardRow(List.of(InlineKeyboardButton.builder()
-                        .text("Налаштування").callbackData("settings")
+                        .text(language.getSettingsMenu().settingsButton())
+                        .callbackData("settings")
                         .build(),InlineKeyboardButton.builder()
-                        .text("Жарт").callbackData("joke")
+                        .text(s.getLanguage().getJokeButton()).callbackData("joke")
                         .build()))
 
                 .build();
