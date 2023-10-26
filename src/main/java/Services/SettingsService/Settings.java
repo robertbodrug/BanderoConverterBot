@@ -15,7 +15,7 @@ public class Settings {
     private Set<String> timeForNotification = new HashSet<>();
     public Settings() {
         decimalPlaces = 2;
-        addBanks("nbu");
+        addBanks("mono");
         addCurrencies("USD");
     }
 

@@ -3,9 +3,9 @@ package Services.APIService;
 import java.util.List;
 
 public class ExchangeRateManager {
-    ExchangeRates exchangeRates = new ExchangeRates();
-    ExchangeRate exchangeRateResult = new ExchangeRate();
-    public ExchangeRate getExchangeRate(String bank, String currency) {
+    static ExchangeRates exchangeRates = new ExchangeRates();
+    static ExchangeRate exchangeRateResult = new ExchangeRate();
+    public static ExchangeRate getExchangeRate(String bank, String currency) {
         List<ExchangeRate> allExchangeRates = bank.equals("privat") ? exchangeRates.getPrivat() :
                                                   bank.equals("mono") ? exchangeRates.getMono() :
                                                                          exchangeRates.getNbu();
