@@ -50,30 +50,33 @@ public class ExchangeRates {
         settings.setBank(bank);
         for (JsonElement element : createJsonArrayExchangeRate(settings)) {
             for (String currency : currencies) {
-                settings.setCurrency(currency);
+                settings.setCurrencyA(currency);
                 JsonObject object = element.getAsJsonObject();
-                if (settings.getBank().equals("privat") ? settings.getCurrency().equals(object.get(settings.getCurrencyTargetForJson()).getAsString()) :
-                        Integer.parseInt(settings.getCurrency()) == object.get(settings.getCurrencyTargetForJson()).getAsInt()) {
+                if (settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
+                    if (settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString()) &&
+                            settings.getBank().equals("privat") ? settings.getCurrencyA().equals(object.get(settings.getCurrencyAKeyForJson()).getAsString()) :
+                            Integer.parseInt(settings.getCurrencyA()) == object.get(settings.getCurrencyAKeyForJson()).getAsInt()) {
                         ExchangeRate exchangeRate = new ExchangeRate();
                         exchangeRate.setBank(bank);
-                        exchangeRate.setCurrency(object.get(settings.getCurrencyTargetForJson()).getAsString());
-                        exchangeRate.setBuy(object.get(settings.getBuyTargetForJson()).getAsString());
-                        if (settings.getSellTargetForJson() != null) {
-                            exchangeRate.setSell(object.get(settings.getSellTargetForJson()).getAsString());
+                        exchangeRate.setCurrencyA(object.get(settings.getCurrencyAKeyForJson()).getAsString());
+                        exchangeRate.setBuy(object.get(settings.getBuyKeyForJson()).getAsString());
+                        if (settings.getSellKeyForJson() != null) {
+                            exchangeRate.setSell(object.get(settings.getSellKeyForJson()).getAsString());
                         }
                         if (bank.equals("privat")) {
-                            exchangeRate.setCurrency(currency);
+                            exchangeRate.setCurrencyA(currency);
                             privat.add(exchangeRate);
                         } else if (bank.equals("mono")) {
-                            exchangeRate.setCurrency(currency);
+                            exchangeRate.setCurrencyA(currency);
                             mono.add(exchangeRate);
                         } else {
-                            exchangeRate.setCurrency(currency);
+                            exchangeRate.setCurrencyA(currency);
                             nbu.add(exchangeRate);
                         }
                     }
                 }
             }
+        }
     }
     public List<ExchangeRate> getPrivat () {
         createExchangeRates("privat");

@@ -2,7 +2,8 @@ package Services.APIService;
 
 public class ExchangeRate {
     private String bank;
-    private String currency;
+    private String currencyA;
+    private String currencyB;
     private String buy;
     private String sell;
 
@@ -14,12 +15,20 @@ public class ExchangeRate {
         return bank;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencyA(String currencyA) {
+        this.currencyA = currencyA;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getCurrencyA() {
+        return currencyA;
+    }
+
+    public void setCurrencyB(String currencyB) {
+        this.currencyB = currencyB;
+    }
+
+    public String getCurrencyB() {
+        return currencyB;
     }
 
     public void setBuy(String buy) {

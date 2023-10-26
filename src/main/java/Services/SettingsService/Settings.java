@@ -11,8 +11,8 @@ public class Settings {
     private Set<String> timeForNotification = new HashSet<>();
 
     public void addBanks(String bank) {
-         if(bank.equals("clearBanks")) {
-             banks.clear();
+         if(banks.contains(bank)) {
+             banks.remove(bank);
          } else {
              banks.add(bank);
          }
@@ -23,8 +23,8 @@ public class Settings {
     }
 
     public void addCurrencies(String currency) {
-        if(currency.equals("clearCurrencies")) {
-            currencies.clear();
+        if(currencies.contains(currency)) {
+            currencies.remove(currency);
         }else {
             currencies.add(currency);
         }
@@ -43,6 +43,8 @@ public class Settings {
 
     public Settings() {
         decimalPlaces = 2;
+        addBanks("nbu");
+        addCurrencies("USD");
     }
     public Settings(byte decimalPlaces) {
         this.decimalPlaces = decimalPlaces;
