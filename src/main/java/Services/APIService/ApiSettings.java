@@ -12,7 +12,7 @@ public class ApiSettings {
 
     public void setBank(String bank) {
         this.bank = bank;
-        token = bank.equals("mono") ? "uWGHpv9nnIfe3EJOv964uy4eM04n00mOdKEwH0Ope5nY" : null;
+        token = bank.equals("mono") ? "" : null;
         url = bank.equals("privat") ? "https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=11" :
                 bank.equals("mono") ? "https://api.monobank.ua/bank/currency" :
                         "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
