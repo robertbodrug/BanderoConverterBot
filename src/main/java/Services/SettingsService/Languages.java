@@ -3,21 +3,32 @@ package Services.SettingsService;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Languages {
     public static final LanguageData ukrainianLanguage = new LanguageData(
             "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!",
+            "Кількість знаків після коми : %d \nОберіть потрібну кількість : ",
             "Отримати курс",
             "Жарт",
+            "Назад",
+             new String[]{"Чому плюшевий ведмедик відмовився від десерту? Він був вже заповнений.",
+                    "Чому футболіст так довго обідав? Тому що він думав, що не може користуватися руками.",
+                    "У мами Сенді четверо дітей; Північ, Захід, Схід. Як звуть четверту дитину? Сенді, очевидно!",
+                    "Чому курка перебігла майданчик? Щоб добігти до наступної дороги.",
+                    "Чому ви ніколи не можете розповісти анекдот про скло? Ви можете луснути."
+            },
+
             new LanguageData.SettingsMenu("⚙  ---  МЕНЮ НАЛАШТУВАНЬ  ---  ⚙",
                     "Налаштування",
                     "Банки",
                     "Кількість знаків після коми",
                     "Валюти",
                     "Налаштування сповіщень",
-                    "Вибір мови",
-                    "Назад"),
+                    "Вибір мови"
+                    ),
             new LanguageData.BanksMenu("Обрані банки: \n",
                     "Приват Банк",
                     "Монобанк",
@@ -25,6 +36,8 @@ public class Languages {
             new LanguageData.CurrencyMenu("Обрані валюти: \n",
                     "Долар США",
                      "Євро",
-                    "Песо"));
+                    "Песо"),
+            new LanguageData.LanguageMenu("Оберіть мову: ")
+    );
 
 }

@@ -1,6 +1,7 @@
 package Services.MessageService;
 
 import Services.KeyboardService.KeyboardManager;
+import Services.SettingsService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -27,17 +28,19 @@ public class MessageManager {
     }
 //Додати текст для повідомлення
 public static String getTextForMessage(String data, Settings s){
+    LanguageData language = s.getLanguage();
     return switch (data) {
         case "doJob" -> doJob(s);
-        case "settings" -> "⚙ НАЛАШТУВАННЯ ⚙";
-        case "languages" -> "Виберіть мову: ";
-        case "banks","privat","mono","nbu" -> "\nОберіть банк: ";
-        case "decimalp_places","0","1","2","3","4" -> "Кількість знаків : "+s.getDecimalPlaces()+"\nВиберіть кількість знаків після коми: ";
-        case "currency","USD","EUR" -> "\nОберіть валюту: ";
+        case "settings" -> language.getSettingsMenu().settingsText();
+        case "languages","uk","en" -> language.getLanguageMenu().LanguageText();
+        case "banks","privat","mono","nbu" -> language.getBanksMenu().banksText() ;
+        case "decimal_places","0","1","2","3","4" ->language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
+        case "currency","USD","EUR" -> language.getCurrencyMenu().currencyText()+s.getCurrencies();
         case "notification" ->  "\nОберіть час на який буде приходити оповіщення: ";
-        case "en" -> "Заглушка";
-        case "uk" -> "Заглушка";
-        case "joke" ->"Прикол ";
+        case "joke" ->{
+            String[] jokes = language.getJokes();
+            yield jokes[(int) (Math.random()*56 % jokes.length)];
+        }
         default -> "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!";
     };
 }
