@@ -63,7 +63,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
              case "settings","decimalp_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
             case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "privat", "mono", "nbu" -> {
+            case "privat", "mono", "nbu","clearBanks" -> {
                 SM.getSettings().addBanks(text);
                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
             }
@@ -72,7 +72,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                  execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
              }
              case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "USD", "EUR" -> {
+            case "USD", "EUR","clearCurrencies" -> {
                 SM.getSettings().addCurrencies(text);
                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
             }

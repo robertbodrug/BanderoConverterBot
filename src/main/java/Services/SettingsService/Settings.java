@@ -11,7 +11,11 @@ public class Settings {
     private Set<String> timeForNotification = new HashSet<>();
 
     public void addBanks(String bank) {
-         banks.add(bank);
+         if(bank.equals("clearBanks")) {
+             banks.clear();
+         } else {
+             banks.add(bank);
+         }
     }
 
     public Set<String> getBanks() {
@@ -19,7 +23,11 @@ public class Settings {
     }
 
     public void addCurrencies(String currency) {
-        currencies.add(currency);
+        if(currency.equals("clearCurrencies")) {
+            currencies.clear();
+        }else {
+            currencies.add(currency);
+        }
     }
 
     public Set<String> getCurrencies() {
