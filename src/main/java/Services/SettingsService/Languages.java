@@ -11,7 +11,7 @@ public class Languages {
     public static final LanguageData ukrainianLanguage = new LanguageData(
             "Вітаємо вас у БандероКонвертері. Цей бот створений для слідкування за курсом валют!",
             "Кількість знаків після коми : <b>%d</b> \nОберіть потрібну кількість : ",
-            "______________________\n<b>UAH/%s</b> \nПродажа : %s \nКупівля: %s\n",
+            "______________________\n<b>UAH/%s</b> \nКупівля : %s \nПродажа : %s\n",
             "Отримати курс",
             "Жарт",
             "Назад",
@@ -44,7 +44,7 @@ public class Languages {
     public static final LanguageData englishLanguage = new LanguageData(
             "Welcome to BanderoConverter. This bot is designed to track currency rates!",
             "Number of decimal places : <b>%d</b> \nChoose the required number : ",
-            "______________________\n<b>UAH/%s</b> \nSell : %s \nPurchase: %s\n",
+            "______________________\n<b>UAH/%s</b> \nBuy : %s \nSell: %s\n",
             "Get Course",
             "Joke",
             "Back",
@@ -76,7 +76,7 @@ public class Languages {
     );
     public static final LanguageData italianLanguage = new LanguageData("Benvenuti in BanderoConverter. Questo bot è progettato per tenere traccia dei tassi di cambio!",
             "Numero di cifre decimali: <b>%d</b> \nScegli il numero richiesto: ",
-            "______________________\n<b>UAH/%s</b> \nVendi: %s \nAcquisto: %s\n",
+            "______________________\n<b>UAH/%s</b> \nAcquisto : %s \nVendi: %s\n",
             "Ottieni corso",
             "Scherzo",
             "Indietro",

@@ -60,8 +60,8 @@ public class MessageManager {
                 ExchangeRate rate = ExchangeRateManager.getExchangeRate(bank,currency);
                 sb.append(s.getLanguage().getDoJobText()
                         .formatted(currency,
-                                getPrettyRate(rate.getSell(),s),
-                                bank.equals("nbu")?"---":getPrettyRate(rate.getBuy(),s)));
+                                getPrettyRate(rate.getBuy(),s),
+                                bank.equals("nbu")?"---":getPrettyRate(rate.getSell(),s)));
             }
             sb.append(divider);
         }
