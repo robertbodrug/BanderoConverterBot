@@ -1,6 +1,7 @@
 package org.example;
 
 import Services.MessageService.MessageManager;
+import Services.SettingsService.Settings;
 import Services.SettingsService.SettingsManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
@@ -54,34 +55,31 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
     private void CallbackResponser(CallbackQuery cq) throws TelegramApiException {
         String text = cq.getData();
         Long id = cq.getMessage().getChatId();
-
+        Integer msgId = cq.getMessage().getMessageId();
+        Settings s = SM.getSettings();
         AnswerCallbackQuery close = AnswerCallbackQuery.builder()
                 .callbackQueryId(cq.getId()).build();
         execute(close);
          switch (text) {
              //добавити метод SM і виконати Message
-             case "settings","decimal_places" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "languages" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "banks" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "settings","decimal_places","languages","banks","currency","notification" -> execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             case "privat", "mono", "nbu","clearBanks" -> {
                 SM.addBanks(text);
-                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             }
             case "0","1","2","3","4"-> {
                  SM.setDecimalPlaces(Integer.parseInt(text));
-                 execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+                 execute(MessageManager.MessageTextEditer(id, text, msgId, s));
              }
-             case "currency" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
+             case "uk","en","it" ->{
+                SM.setLanguages(text);
+                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
+             }
             case "USD", "EUR","clearCurrencies" -> {
                 SM.addCurrencies(text);
-                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
+                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             }
-            case "notification" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "en" -> execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(),SM.getSettings()));
-            case "uk" -> {
-                execute(MessageManager.MessageTextEditer(id, text, cq.getMessage().getMessageId(), SM.getSettings()));
-            }
-                default ->                 execute(MessageManager.MessageBuilder(id, text,SM.getSettings()));
+                default ->                 execute(MessageManager.MessageBuilder(id, text, s));
 
          };
 

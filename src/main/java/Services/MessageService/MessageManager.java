@@ -38,7 +38,7 @@ public class MessageManager {
         return switch (data) {
             case "doJob" -> doJob(s);
             case "settings" -> language.getSettingsMenu().settingsText();
-            case "languages", "uk", "en" -> language.getLanguageMenu().LanguageText();
+            case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();
             case "banks", "privat", "mono", "nbu" -> language.getBanksMenu().banksText();
             case "decimal_places", "0", "1", "2", "3", "4" -> language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
             case "currency", "USD", "EUR" -> language.getCurrencyMenu().currencyText() + s.getCurrencies();
@@ -53,7 +53,7 @@ public class MessageManager {
 
     private static String doJob(Settings s) {
         String divider= "\n=====================\n\n";
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String bank : s.getBanks()) {
             sb.append(getPrettyBanks(bank, s));
             for (String currency : s.getCurrencies()) {
