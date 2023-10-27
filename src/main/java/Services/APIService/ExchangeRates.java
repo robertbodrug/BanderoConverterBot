@@ -11,12 +11,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ExchangeRates {
     private ApiSettings settings;
     private List<ExchangeRate> privat = new ArrayList<>();
     private List<ExchangeRate> mono = new ArrayList<>();
     private List<ExchangeRate> nbu = new ArrayList<>();
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    public ExchangeRates() {
+        scheduler.scheduleAtFixedRate(this::cleanArrayList, 0, 1, TimeUnit.MINUTES);
+    }
+    public void cleanArrayList() {
+        if(!privat.isEmpty() || !mono.isEmpty() || !nbu.isEmpty()) {
+            privat.clear();
+            mono.clear();
+            nbu.clear();
+            System.out.println("Array cleaning is successful");
+        }
+    }
+
     public JsonArray createJsonArrayExchangeRate(ApiSettings s) {
             try {
                 URL url = new URL(s.getURL());
@@ -53,7 +69,7 @@ public class ExchangeRates {
                 settings.setCurrencyA(currency);
                 JsonObject object = element.getAsJsonObject();
                 if (settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
-                    if (settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString()) &&
+                    if ((settings.getCurrencyB() == null || settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString())) &&
                             settings.getBank().equals("privat") ? settings.getCurrencyA().equals(object.get(settings.getCurrencyAKeyForJson()).getAsString()) :
                             Integer.parseInt(settings.getCurrencyA()) == object.get(settings.getCurrencyAKeyForJson()).getAsInt()) {
                         ExchangeRate exchangeRate = new ExchangeRate();
@@ -79,16 +95,16 @@ public class ExchangeRates {
         }
     }
     public List<ExchangeRate> getPrivat () {
-        createExchangeRates("privat");
+        if(privat.isEmpty()) {createExchangeRates("privat");}
         return privat;
     }
 
     public List<ExchangeRate> getMono () {
-        createExchangeRates("mono");
+        if(mono.isEmpty()) {createExchangeRates("mono");}
         return mono;
     }
     public List<ExchangeRate> getNbu () {
-        createExchangeRates("nbu");
+        if(nbu.isEmpty()) {createExchangeRates("nbu");}
         return nbu;
     }
 }

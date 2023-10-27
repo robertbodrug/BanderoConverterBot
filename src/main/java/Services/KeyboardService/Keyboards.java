@@ -126,7 +126,7 @@ public enum Keyboards {
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text(s.getLanguage().getBackButton())
-                            .callbackData("back")
+                            .callbackData("settings")
                             .build()))
                     .build();
         }
@@ -146,7 +146,7 @@ public enum Keyboards {
                             .callbackData("EUR")
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
-                            .text("Назад")
+                            .text(s.getLanguage().getBackButton())
                             .callbackData("settings")
                             .build()))
                     .build();

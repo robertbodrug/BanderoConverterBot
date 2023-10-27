@@ -27,10 +27,6 @@ public class ExchangeRate {
         this.currencyB = currencyB;
     }
 
-    public String getCurrencyB() {
-        return currencyB;
-    }
-
     public void setBuy(String buy) {
         this.buy = buy;
     }

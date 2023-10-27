@@ -28,9 +28,9 @@ public class KeyboardManager {
             case "settings" -> SETTINGS_KEYBOARD.getKeyboard(s);
             case "languages","en","uk","it" -> LANGUAGES_KEYBOARD.getKeyboard(s);
 //            case "doJob" -> "Заглушка";
-            case "banks","privat","mono","nbu","clearBanks" -> BANKS_KEYBOARD.getKeyboard(s);
+            case "banks","privat","mono","nbu" -> BANKS_KEYBOARD.getKeyboard(s);
             case "decimal_places","0","1","2","3","4"->DECIMAL_PLACES_KEYBOARD.getKeyboard(s);
-            case "currency","USD","EUR","clearCurrencies" -> CURRENCY_KEYBOARD.getKeyboard(s);
+            case "currency","USD","EUR" -> CURRENCY_KEYBOARD.getKeyboard(s);
 //          case "notification" -> "Заглушка";
             default -> MAIN_KEYBOARD.getKeyboard(s);
 
