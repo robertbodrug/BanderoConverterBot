@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class SettingsReader {
     public static Settings getSettings(Long chatId) throws IOException {
-        Gson gson = new Gson();
-        JsonParser.parseString(gson.fromJson(new FileReader("C:\\Users\\agrte\\IdeaProjects\\BanderoConverterBot\\src\\main\\java\\Services\\SettingsService\\settingsBase.json"), Settings.class);).getAsJsonArray() =
-        return settings;
+        //Gson gson = new Gson();
+        //JsonParser.parseString(gson.fromJson(new FileReader("C:\\Users\\agrte\\IdeaProjects\\BanderoConverterBot\\src\\main\\java\\Services\\SettingsService\\settingsBase.json"), Settings.class)).getAsJsonArray() =
+        return null;
     }
 }

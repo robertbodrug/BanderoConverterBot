@@ -15,6 +15,6 @@ public class SettingsManager {
     public void setLanguages(String language){settings.setLanguage(language);}
     public void addBanks(String bank) {settings.addBanks(bank);}
     public void addCurrencies(String currency) {settings.addCurrencies(currency);}
-    public void addTimeForNotification(String time) {settings.addTimeForNotification(time);}
-
+    public void setTime(String time) {settings.setTime(time);}
+    public String getTime() {return settings.getTime();}
 }

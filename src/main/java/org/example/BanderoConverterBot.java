@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
+
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
 
@@ -75,14 +76,26 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 SM.setLanguages(text);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, s));
              }
-            case "USD", "EUR","clearCurrencies" -> {
+            case "USD", "EUR" -> {
                 SM.addCurrencies(text);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             }
-                default ->                 execute(MessageManager.MessageBuilder(id, text, s));
-
+            case "number_0","number_1","number_2",
+                    "number_3", "number_4","number_5","number_6",
+                    "number_7", "number_8","number_9" -> {
+                SM.setTime(text.substring(7) + (SM.getTime().length() == 1 ? ":" : ""));
+                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
+            }
+            case "on","delete","off" -> {
+                if (text.equals("delete")) {
+                    SM.getSettings().deleteDigitFromTime();
+                } else {
+                    SM.setTime("0");
+                }
+                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
+            }
+                default -> execute(MessageManager.MessageBuilder(id, text, s));
          };
-
     }
 
 

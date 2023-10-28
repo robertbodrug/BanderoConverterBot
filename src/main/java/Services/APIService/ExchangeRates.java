@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,11 +21,12 @@ public class ExchangeRates {
     private List<ExchangeRate> privat = new ArrayList<>();
     private List<ExchangeRate> mono = new ArrayList<>();
     private List<ExchangeRate> nbu = new ArrayList<>();
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     public ExchangeRates() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(this::cleanArrayList, 0, 1, TimeUnit.MINUTES);
     }
-    public void cleanArrayList() {
+    private void cleanArrayList() {
         if(!privat.isEmpty() || !mono.isEmpty() || !nbu.isEmpty()) {
             privat.clear();
             mono.clear();
@@ -33,7 +35,7 @@ public class ExchangeRates {
         }
     }
 
-    public JsonArray createJsonArrayExchangeRate(ApiSettings s) {
+    private JsonArray createJsonArrayExchangeRate(ApiSettings s) {
             try {
                 URL url = new URL(s.getURL());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -64,7 +66,7 @@ public class ExchangeRates {
         String[] currencies = new String[]{"USD", "EUR"};
         settings = new ApiSettings();
         settings.setBank(bank);
-        for (JsonElement element : createJsonArrayExchangeRate(settings)) {
+        for (JsonElement element : Objects.requireNonNull(createJsonArrayExchangeRate(settings))) {
             for (String currency : currencies) {
                 settings.setCurrencyA(currency);
                 JsonObject object = element.getAsJsonObject();

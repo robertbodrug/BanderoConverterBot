@@ -2,9 +2,12 @@ package Services.KeyboardService;
 
 import Services.SettingsService.LanguageData;
 import Services.SettingsService.Settings;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public enum Keyboards {
@@ -129,6 +132,54 @@ public enum Keyboards {
                             .callbackData("settings")
                             .build()))
                     .build();
+        }
+    },
+    NOTIFICATION_KEYBOARD {
+        @Override
+        public InlineKeyboardMarkup getKeyboard(Settings s) {
+
+            List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
+
+            List<InlineKeyboardButton> numberButtons1 = new ArrayList<>();
+            for (int i = 0; i <= 4; i++) {
+                InlineKeyboardButton button = new InlineKeyboardButton(Integer.toString(i));
+                button.setCallbackData("number_" + i);
+                numberButtons1.add(button);
+            }
+            keyboard.add(numberButtons1);
+            List<InlineKeyboardButton> numberButtons2 = new ArrayList<>();
+            for (int i = 5; i <= 9; i++) {
+                InlineKeyboardButton button = new InlineKeyboardButton(Integer.toString(i));
+                button.setCallbackData("number_" + i);
+                numberButtons2.add(button);
+            }
+            keyboard.add(numberButtons2);
+
+            List<InlineKeyboardButton> okButton = new ArrayList<>();
+            InlineKeyboardButton ok = new InlineKeyboardButton("Ввімкнути");
+            ok.setCallbackData("on");
+            okButton.add(ok);
+
+            InlineKeyboardButton delete = new InlineKeyboardButton("Видалити");
+            delete.setCallbackData("delete");
+            okButton.add(delete);
+
+            keyboard.add(okButton);
+
+            List<InlineKeyboardButton> controlButtons = new ArrayList<>();
+            InlineKeyboardButton addTime = new InlineKeyboardButton("Вимкнути");
+            addTime.setCallbackData("off");
+            controlButtons.add(addTime);
+
+
+            InlineKeyboardButton back = new InlineKeyboardButton("Назад");
+            back.setCallbackData("settings");
+            controlButtons.add(back);
+
+            keyboard.add(controlButtons);
+
+            InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(keyboard);
+            return keyboardMarkup;
         }
     },
     CURRENCY_KEYBOARD{
