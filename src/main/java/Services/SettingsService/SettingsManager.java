@@ -44,14 +44,8 @@ public class SettingsManager {
     }
     public static void addTimeForNotification(String time,long chatId) throws IOException {
         Settings s = getSettings(chatId);
-        Set<String> timeForNotification = s.getTimeForNotification();
-        if(timeForNotification.contains(time)) {
-            timeForNotification.remove(time);
-        }else {
-            timeForNotification.add(time);
-        }
-        s.setTimeForNotification(timeForNotification);
-            SettingsSaver.SaveSettings(chatId,s);
-
+        s.setTime(time);
+        SettingsSaver.SaveSettings(chatId,s);
     }
+
 }

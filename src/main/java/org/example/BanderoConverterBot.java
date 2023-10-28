@@ -15,6 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.IOException;
 
 
+
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
 
@@ -85,7 +86,6 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 default ->                 execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
 
          };
-
     }
 
 

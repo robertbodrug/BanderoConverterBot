@@ -5,9 +5,17 @@ import Services.APIService.ExchangeRateManager;
 import Services.KeyboardService.KeyboardManager;
 import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
+import org.example.BanderoConverterBot;
+import org.apache.http.cookie.SM;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MessageManager {
@@ -37,12 +45,16 @@ public class MessageManager {
         LanguageData language = s.getLanguage();
         return switch (data) {
             case "doJob" -> doJob(s);
+            case "on" -> notificationManager(s.getTime());
             case "settings" -> language.getSettingsMenu().settingsText();
             case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();
             case "banks", "privat", "mono", "nbu" -> language.getBanksMenu().banksText();
             case "decimal_places", "0", "1", "2", "3", "4" -> language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
             case "currency", "USD", "EUR" -> language.getCurrencyMenu().currencyText() + s.getCurrencies();
-            case "notification" -> "\nОберіть час на який буде приходити оповіщення: ";
+            case "notification","number_0","number_1","number_2",
+                    "number_3", "number_4","number_5","number_6",
+                    "number_7", "number_8","number_9",
+                    "delete","off" -> "\nВведіть час у форматі HH:MM на який буде приходити оповіщення: " + s.getTime();
             case "joke" -> {
                 String[] jokes = language.getJokes();
                 yield jokes[(int) (Math.random() * 56 % jokes.length)];
@@ -80,6 +92,35 @@ public class MessageManager {
 
     private static String getPrettyRate(String rate, Settings s) {
         return rate.substring(0, rate.indexOf(".") +s.getDecimalPlaces() + (s.getDecimalPlaces()==0?0 :1 ));
+    }
+    private static Timer timer = new Timer();
+    public static String notificationManager(String t) {
+        int hours = Integer.parseInt(t.substring(0,2));
+        int minutes = Integer.parseInt(t.substring(3));
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date executionTime = getTime(hours, minutes);
+        System.out.println("Output notification at: " + sdf.format(executionTime));
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println(sdf.format(new Date()));
+            }
+        }, executionTime);
+        return sdf.toString();
+    }
+    private static Date getTime(int hours, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date now = new Date();
+        if (now.after(calendar.getTime())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return calendar.getTime();
     }
 }
 

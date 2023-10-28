@@ -16,7 +16,7 @@ public class Settings {
     private String language = "uk";
     private Set<String> banks = new HashSet<>();
     private Set<String> currencies = new HashSet<>();
-    private Set<String> timeForNotification = new HashSet<>();
+    private StringBuffer times = new StringBuffer();
     public Settings() {
         decimalPlaces = 2;
         banks.add("mono");
@@ -45,7 +45,16 @@ public class Settings {
                 ", language='" + language + '\'' +
                 ", banks=" + banks +
                 ", currencies=" + currencies +
-                ", timeForNotification=" + timeForNotification +
+                ", timeForNotification=" + times +
                 '}';
+    }
+    public void setTime(String in) {
+        if(times.length() <= 4) {times.append(in);}
+    }
+    public String getTime() {
+        return times.toString();
+    }
+    public void deleteDigitFromTime() {
+        times.deleteCharAt(getTime().length() - 1);
     }
 }

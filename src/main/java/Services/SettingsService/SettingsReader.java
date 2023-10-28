@@ -22,5 +22,6 @@ public class SettingsReader {
         HashMap<Long,Settings> s =gson.fromJson(new JsonReader(new FileReader("C:\\Users\\agrte\\IdeaProjects\\BanderoConverterBot\\src\\main\\java\\Services\\SettingsService\\settingsBase.json")), token);
 
         return s!=null?s:new HashMap<Long,Settings>();
+
     }
 }

@@ -6,14 +6,9 @@ import java.util.Timer;
 
 public class Test {
     public static void main(String[] args) {
-        ExchangeRate exchangeRate = ExchangeRateManager.getExchangeRate("mono", "EUR");
-        ExchangeRates exchangeRates = new ExchangeRates();
-        exchangeRate = exchangeRates.getMono().get(0);
-        System.out.println(exchangeRate.getBank() + exchangeRate.getBuy() + exchangeRate.getCurrencyA());
-        exchangeRate = exchangeRates.getPrivat().get(0);
-        System.out.println(exchangeRate.getBank() + exchangeRate.getBuy() + exchangeRate.getCurrencyA());
-        exchangeRate = exchangeRates.getNbu().get(0);
-        System.out.println(exchangeRate.getBank() + exchangeRate.getBuy() + exchangeRate.getCurrencyA());
-        //System.out.println(exchangeRate.getBank() + exchangeRate.getCurrencyA() + exchangeRate.getSell() );}
+
+        NotificationManager manager = new NotificationManager();
+        manager.notificationManager(() -> System.out.println("Hello"),"16:02");
+        System.out.println("\nВведіть час у форматі HH:MM на який буде приходити оповіщення: ".length());
     }
 }
