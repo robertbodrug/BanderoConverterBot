@@ -1,5 +1,7 @@
 package Services.SettingsService;
 
+import Services.LanguageService.LanguageData;
+import Services.LanguageService.Languages;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,38 +19,33 @@ public class Settings {
     private Set<String> timeForNotification = new HashSet<>();
     public Settings() {
         decimalPlaces = 2;
-        addBanks("mono");
-        addCurrencies("USD");
+        banks.add("mono");
+        currencies.add("USD");
     }
 
     public LanguageData getLanguage() {
         return switch (language){
-            case "en"->Languages.englishLanguage;
+            case "en"-> Languages.englishLanguage;
             case "it"->Languages.italianLanguage;
             default->Languages.ukrainianLanguage;
 
         };
     }
-
-    public void addBanks(String bank) {
-         if(banks.contains(bank)) {
-             banks.remove(bank);
-         } else {
-             banks.add(bank);
-         }
+    public void setDecimalPlaces(int decimalPlaces) {
+        this.decimalPlaces = decimalPlaces;
     }
 
-    public void addCurrencies(String currency) {
-        if(currencies.contains(currency)) {
-            currencies.remove(currency);
-        }else {
-            currencies.add(currency);
-        }
+    public void setLanguage(String language) {
+        this.language = language;
     }
-
-    public void addTimeForNotification(String time) {
-        timeForNotification.add(time);
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "decimalPlaces=" + decimalPlaces +
+                ", language='" + language + '\'' +
+                ", banks=" + banks +
+                ", currencies=" + currencies +
+                ", timeForNotification=" + timeForNotification +
+                '}';
     }
-
-
 }

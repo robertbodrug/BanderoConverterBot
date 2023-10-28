@@ -4,13 +4,20 @@ import com.google.gson.Gson;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SettingsSaver {
-    public static void SaveSettings(Settings s) throws IOException {
+    public static void SaveSettings(Long chatId,Settings s) throws IOException {
         Gson gson = new Gson();
-        FileWriter file = new FileWriter(".\\settingsBase.json");
-        file.write(gson.toJson(s));
-        file.close();System.out.println("saved");
+        HashMap<Long, Settings> allSettings = SettingsReader.getAllSettings();
+        FileWriter file = new FileWriter("C:\\Users\\agrte\\IdeaProjects\\BanderoConverterBot\\src\\main\\java\\Services\\SettingsService\\settingsBase.json");
+
+        allSettings.put(chatId,s);
+        file.write(gson.toJson(allSettings));
+        file.close();
 
     }
-}
+    }
+

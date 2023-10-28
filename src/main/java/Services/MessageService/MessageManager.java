@@ -3,7 +3,7 @@ package Services.MessageService;
 import Services.APIService.ExchangeRate;
 import Services.APIService.ExchangeRateManager;
 import Services.KeyboardService.KeyboardManager;
-import Services.SettingsService.LanguageData;
+import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
