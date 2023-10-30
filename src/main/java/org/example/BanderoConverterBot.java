@@ -15,7 +15,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
 
-
  SettingsManager SM = new SettingsManager();
     @Override
     public void onUpdateReceived(Update update) {
@@ -68,7 +67,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 SM.addBanks(text);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             }
-            case "0","1","2","3","4"-> {
+            case "0","1","2","3","4" -> {
                  SM.setDecimalPlaces(Integer.parseInt(text));
                  execute(MessageManager.MessageTextEditer(id, text, msgId, s));
              }
@@ -86,6 +85,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 SM.setTime(text.substring(7) + (SM.getTime().length() == 1 ? ":" : ""));
                 execute(MessageManager.MessageTextEditer(id, text, msgId, s));
             }
+            case "on" ->
             case "on","delete","off" -> {
                 if (text.equals("delete")) {
                     SM.getSettings().deleteDigitFromTime();

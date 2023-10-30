@@ -35,7 +35,7 @@ public class KeyboardManager {
             case "notification","number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9","on",
-                    "delete","off"-> NOTIFICATION_KEYBOARD.getKeyboard(s);
+                    "delete","off" -> NOTIFICATION_KEYBOARD.getKeyboard(s);
             default -> MAIN_KEYBOARD.getKeyboard(s);
 
 
