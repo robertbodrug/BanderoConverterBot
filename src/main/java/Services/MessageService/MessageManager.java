@@ -5,17 +5,12 @@ import Services.APIService.ExchangeRateManager;
 import Services.KeyboardService.KeyboardManager;
 import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
-import org.example.BanderoConverterBot;
-import org.apache.http.cookie.SM;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class MessageManager {
@@ -64,7 +59,6 @@ public class MessageManager {
     }
 
     private static String doJob(Settings s) {
-        System.out.println("eeeeeeeeeee");
         String divider= "\n=====================\n\n";
         StringBuilder sb = new StringBuilder();
         for (String bank : s.getBanks()) {
@@ -91,8 +85,32 @@ public class MessageManager {
         };
     }
 
-    private static String getPrettyRate(String rate, Settings s) {
-        return rate.substring(0, rate.indexOf(".") +s.getDecimalPlaces() + (s.getDecimalPlaces()==0?0 :1 ));
+    public static String getPrettyRate(String rate, Settings s) {
+        int decimalPlaces = s.getDecimalPlaces();
+        int rateLenght = rate.indexOf('.')+1+(decimalPlaces==0?-1:decimalPlaces);
+        if(rate.length()<rateLenght){
+            return   rate+String.join("", () -> new Iterator<>() {
+                int count = 0;
+
+                @Override
+                public boolean hasNext() {
+                    if (rate.length() + count < rateLenght) {
+                        count++;
+                        return true;
+                    }
+                    return false;
+
+                }
+
+                @Override
+                public String next() {
+                    return "0";
+                }
+            });
+        }
+        else {
+            return rate.substring(0, rateLenght);
+        }
     }
     private static Timer timer = new Timer();
     public static String notificationManager(String t) {
