@@ -64,6 +64,7 @@ public class MessageManager {
     }
 
     private static String doJob(Settings s) {
+        System.out.println("eeeeeeeeeee");
         String divider= "\n=====================\n\n";
         StringBuilder sb = new StringBuilder();
         for (String bank : s.getBanks()) {

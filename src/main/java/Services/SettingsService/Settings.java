@@ -38,6 +38,16 @@ public class Settings {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public void setTime(String in) {
+        if(times.length() <= 4) {times.append(in);}
+    }
+    public String getTime() {
+        return times.toString();
+    }
+    public void deleteDigitFromTime() {
+        times.deleteCharAt(getTime().length() - 1);
+    }
     @Override
     public String toString() {
         return "Settings{" +
@@ -47,14 +57,5 @@ public class Settings {
                 ", currencies=" + currencies +
                 ", timeForNotification=" + times +
                 '}';
-    }
-    public void setTime(String in) {
-        if(times.length() <= 4) {times.append(in);}
-    }
-    public String getTime() {
-        return times.toString();
-    }
-    public void deleteDigitFromTime() {
-        times.deleteCharAt(getTime().length() - 1);
     }
 }

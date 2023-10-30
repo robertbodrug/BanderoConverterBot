@@ -12,7 +12,7 @@ public class SettingsSaver {
     public static void SaveSettings(Long chatId,Settings s) throws IOException {
         Gson gson = new Gson();
         HashMap<Long, Settings> allSettings = SettingsReader.getAllSettings();
-        FileWriter file = new FileWriter("C:\\Users\\agrte\\IdeaProjects\\BanderoConverterBot\\src\\main\\java\\Services\\SettingsService\\settingsBase.json");
+        FileWriter file = new FileWriter(".\\src\\main\\java\\Services\\SettingsService\\settingsBase.json");
 
         allSettings.put(chatId,s);
         file.write(gson.toJson(allSettings));
