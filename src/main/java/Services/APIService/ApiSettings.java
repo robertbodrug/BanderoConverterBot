@@ -14,7 +14,7 @@ public class ApiSettings {
 
     public void setBank(String bank) {
         this.bank = bank;
-        token = bank.equals("mono") ? "" : null;
+        token = bank.equals("mono") ? "uWGHpv9nnIfe3EJOv964uy4eM04n00mOdKEwH0Ope5nY" : null;
         url = bank.equals("privat") ? "https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=11" :
                 bank.equals("mono") ? "https://api.monobank.ua/bank/currency" :
                         "https://bank.gov.ua/NBU_Exchange/exchange?json";
@@ -28,24 +28,16 @@ public class ApiSettings {
 
 
     public void setCurrencyA(String currencyA) {
-        if(currencyA.equals("USD")) {
-            this.currencyA = getBank().equals("privat") ? currencyA : "840";
-        }else if (currencyA.equals("EUR")) {
-            this.currencyA = getBank().equals("privat") ? currencyA : "980";
-        }else if (currencyA.equals("JPY")) {
-            this.currencyA = getBank().equals("privat") ? null : "392";
-        }else if (currencyA.equals("PLN")) {
-            this.currencyA = getBank().equals("privat") ? null : "985";
-        }else if (currencyA.equals("CZK")) {
-            this.currencyA = getBank().equals("privat") ? null : "203";
-        }else if (currencyA.equals("DKK")) {
-            this.currencyA = getBank().equals("privat") ? null : "208";
-        }else if (currencyA.equals("NOK")) {
-            this.currencyA = getBank().equals("privat") ? null : "578";
-        }else if (currencyA.equals("SEK")) {
-            this.currencyA = getBank().equals("privat") ? null : "752";
-        }else{
-            this.currencyA = getBank().equals("privat") ? null : "484";
+        switch (currencyA) {
+            case "USD" -> this.currencyA = getBank().equals("privat") ? currencyA : "840";
+            case "EUR" -> this.currencyA = getBank().equals("privat") ? currencyA : "978";
+            case "JPY" -> this.currencyA = getBank().equals("privat") ? null : "392";
+            case "PLN" -> this.currencyA = getBank().equals("privat") ? null : "985";
+            case "CZK" -> this.currencyA = getBank().equals("privat") ? null : "203";
+            case "DKK" -> this.currencyA = getBank().equals("privat") ? null : "208";
+            case "NOK" -> this.currencyA = getBank().equals("privat") ? null : "578";
+            case "SEK" -> this.currencyA = getBank().equals("privat") ? null : "752";
+            default -> this.currencyA = getBank().equals("privat") ? null : "484";
         }
     }
 

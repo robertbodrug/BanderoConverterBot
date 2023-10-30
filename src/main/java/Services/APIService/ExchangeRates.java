@@ -63,14 +63,14 @@ public class ExchangeRates {
         return null;
     }
     public void createExchangeRates(String bank) {
-        String[] currencies = new String[]{"USD", "EUR", "JPY","PLN","CZK","DKK","NOK","SEK","MXN"};
+        String[] currencies = new String[]{"USD", "EUR"};
         settings = new ApiSettings();
         settings.setBank(bank);
         for (JsonElement element : Objects.requireNonNull(createJsonArrayExchangeRate(settings))) {
             for (String currency : currencies) {
                 settings.setCurrencyA(currency);
                 JsonObject object = element.getAsJsonObject();
-                if (object.get(settings.getCurrencyAKeyForJson()).getAsString() != null && settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
+                if (settings.getCurrencyA() != null && settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
                     if ((settings.getCurrencyB() == null || settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString())) &&
                             settings.getBank().equals("privat") ? settings.getCurrencyA().equals(object.get(settings.getCurrencyAKeyForJson()).getAsString()) :
                             Integer.parseInt(settings.getCurrencyA()) == object.get(settings.getCurrencyAKeyForJson()).getAsInt()) {
