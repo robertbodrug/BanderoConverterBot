@@ -11,10 +11,7 @@ public class ExchangeRateManager {
                                                                          exchangeRates.getNbu();
         for (ExchangeRate exchangeRate : allExchangeRates) {
             if (exchangeRate.getCurrencyA().equals(currency)) {
-                exchangeRateResult.setBank(bank);
-                exchangeRateResult.setBuy(exchangeRate.getBuy());
-                exchangeRateResult.setCurrencyA(currency);
-                exchangeRateResult.setSell(exchangeRate.getSell());
+                exchangeRateResult = exchangeRate;
             }
         }
         return exchangeRateResult;

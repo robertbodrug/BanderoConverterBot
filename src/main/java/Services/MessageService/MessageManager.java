@@ -44,12 +44,12 @@ public class MessageManager {
         LanguageData language = s.getLanguage();
         return switch (data) {
             case "doJob" -> doJob(s);
-            case "on" -> doJob(s);
+            case "on" -> getPrettyNotification(s);
             case "settings" -> language.getSettingsMenu().settingsText();
             case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();
             case "banks", "privat", "mono", "nbu" -> language.getBanksMenu().banksText();
             case "decimal_places", "0", "1", "2", "3", "4" -> language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
-            case "currency", "USD", "EUR" -> language.getCurrencyMenu().currencyText() + s.getCurrencies();
+            case "currency", "USD", "EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN" -> language.getCurrencyMenu().currencyText() + s.getCurrencies();
             case "notification","number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9",
@@ -78,6 +78,18 @@ public class MessageManager {
         }
         sb.delete(sb.length()-24,sb.length());
         return sb.toString();
+    }
+    private static String getPrettyNotification(Settings s) {
+        StringBuilder stringBuffer = new StringBuilder();
+        stringBuffer.append("Ваші налаштування опвіщень:\nЧас: ").append(s.getTime()).append("\n\nБанки:\n");
+        for(String bank : s.getBanks()) {
+            stringBuffer.append(getPrettyBanks(bank, s));
+        }
+        stringBuffer.append("\nВалюти:\n");
+        for(String currency : s.getCurrencies()) {
+            stringBuffer.append(currency).append("\n");
+        }
+        return stringBuffer.toString();
     }
 
     private static String getPrettyBanks(String bank, Settings s) {

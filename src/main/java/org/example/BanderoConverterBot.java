@@ -93,7 +93,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 SettingsManager.setLanguages(text,id);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
-             case "USD", "EUR" -> {
+             case "USD", "EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN" -> {
                  SettingsManager.addCurrencies(text,id);
                  execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
              }
@@ -106,6 +106,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "on" -> {
                 SettingsManager.setIsWaitingForNotification(id,true);
                 if(notificationTask == null){doNotification(SettingsReader.getSettings(id).getTime(), SettingsReader.getSettings(id), id);}
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
             case "delete","off" -> {
                 if (text.equals("delete")) {

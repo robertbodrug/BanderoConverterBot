@@ -31,7 +31,7 @@ public class KeyboardManager {
 //            case "doJob" -> "Заглушка";
             case "banks","privat","mono","nbu" -> BANKS_KEYBOARD.getKeyboard(s);
             case "decimal_places","0","1","2","3","4"->DECIMAL_PLACES_KEYBOARD.getKeyboard(s);
-            case "currency","USD","EUR" -> CURRENCY_KEYBOARD.getKeyboard(s);
+            case "currency","USD","EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN" -> CURRENCY_KEYBOARD.getKeyboard(s);
             case "notification","number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9","on",

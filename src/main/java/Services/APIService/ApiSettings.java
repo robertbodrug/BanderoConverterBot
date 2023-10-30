@@ -28,7 +28,25 @@ public class ApiSettings {
 
 
     public void setCurrencyA(String currencyA) {
-        this.currencyA = getBank().equals("privat") ? currencyA : currencyA.equals("USD") ? "840" : "978";
+        if(currencyA.equals("USD")) {
+            this.currencyA = getBank().equals("privat") ? currencyA : "840";
+        }else if (currencyA.equals("EUR")) {
+            this.currencyA = getBank().equals("privat") ? currencyA : "980";
+        }else if (currencyA.equals("JPY")) {
+            this.currencyA = getBank().equals("privat") ? null : "392";
+        }else if (currencyA.equals("PLN")) {
+            this.currencyA = getBank().equals("privat") ? null : "985";
+        }else if (currencyA.equals("CZK")) {
+            this.currencyA = getBank().equals("privat") ? null : "203";
+        }else if (currencyA.equals("DKK")) {
+            this.currencyA = getBank().equals("privat") ? null : "208";
+        }else if (currencyA.equals("NOK")) {
+            this.currencyA = getBank().equals("privat") ? null : "578";
+        }else if (currencyA.equals("SEK")) {
+            this.currencyA = getBank().equals("privat") ? null : "752";
+        }else{
+            this.currencyA = getBank().equals("privat") ? null : "484";
+        }
     }
 
     public String getURL() {
