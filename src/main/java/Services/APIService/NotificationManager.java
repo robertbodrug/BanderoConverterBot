@@ -1,5 +1,7 @@
 package Services.APIService;
 
+import Services.SettingsService.Settings;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +10,7 @@ import java.util.TimerTask;
 
 public class NotificationManager{
     private Timer timer = new Timer();
-    public void doNotification(final Runnable task, String t) {
+    public void doNotification(final Runnable task, String t, Settings s) {
         int hours = Integer.parseInt(t.substring(0,2));
         int minutes = Integer.parseInt(t.substring(3));
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");

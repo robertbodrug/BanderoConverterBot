@@ -1,5 +1,6 @@
 package org.example;
 
+import Services.APIService.NotificationManager;
 import Services.MessageService.MessageManager;
 import Services.SettingsService.Settings;
 import Services.SettingsService.SettingsManager;
@@ -85,16 +86,16 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9" -> {
-                SettingsManager.setTime(text.substring(7) + (Setting.getTime().length() == 1 ? ":" : ""));
-                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
+                SettingsManager.addTimeForNotification(text.substring(7) + (SettingsManager.getSettings(id).getTime().length() == 1 ? ":" : ""), id);
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
             }
             case "on","delete","off" -> {
                 if (text.equals("delete")) {
                     SettingsManager.getSettings(id).deleteDigitFromTime();
                 } else {
-                    SettingsManager.setTime("0");
+                    SettingsManager.addTimeForNotification("0",id);
                 }
-                execute(MessageManager.MessageTextEditer(id, text, msgId, s));
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
             }
                 default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
          };
