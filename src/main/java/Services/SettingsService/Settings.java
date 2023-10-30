@@ -1,5 +1,7 @@
 package Services.SettingsService;
 
+import Services.LanguageService.LanguageData;
+import Services.LanguageService.Languages;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,44 +16,46 @@ public class Settings {
     private String language = "uk";
     private Set<String> banks = new HashSet<>();
     private Set<String> currencies = new HashSet<>();
-    private StringBuffer time = new StringBuffer();
+    private StringBuffer times = new StringBuffer();
     public Settings() {
         decimalPlaces = 2;
-        addBanks("mono");
-        addCurrencies("USD");
+        banks.add("mono");
+        currencies.add("USD");
     }
 
     public LanguageData getLanguage() {
         return switch (language){
-            case "en"->Languages.englishLanguage;
+            case "en"-> Languages.englishLanguage;
             case "it"->Languages.italianLanguage;
             default->Languages.ukrainianLanguage;
 
         };
     }
-
-    public void addBanks(String bank) {
-         if(banks.contains(bank)) {
-             banks.remove(bank);
-         } else {
-             banks.add(bank);
-         }
+    public void setDecimalPlaces(int decimalPlaces) {
+        this.decimalPlaces = decimalPlaces;
     }
 
-    public void addCurrencies(String currency) {
-        if(currencies.contains(currency)) {
-            currencies.remove(currency);
-        }else {
-            currencies.add(currency);
-        }
+    public void setLanguage(String language) {
+        this.language = language;
     }
+
     public void setTime(String in) {
-        if(time.length() <= 4) {time.append(in);}
+        if(times.length() <= 4) {times.append(in);}
     }
     public String getTime() {
-        return time.toString();
+        return times.toString();
     }
     public void deleteDigitFromTime() {
-        time.deleteCharAt(getTime().length() - 1);
+        times.deleteCharAt(getTime().length() - 1);
+    }
+    @Override
+    public String toString() {
+        return "Settings{" +
+                "decimalPlaces=" + decimalPlaces +
+                ", language='" + language + '\'' +
+                ", banks=" + banks +
+                ", currencies=" + currencies +
+                ", timeForNotification=" + times +
+                '}';
     }
 }

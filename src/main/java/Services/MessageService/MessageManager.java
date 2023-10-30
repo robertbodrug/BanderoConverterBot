@@ -4,7 +4,7 @@ import org.example.BanderoConverterBot;
 import Services.APIService.ExchangeRate;
 import Services.APIService.ExchangeRateManager;
 import Services.KeyboardService.KeyboardManager;
-import Services.SettingsService.LanguageData;
+import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
 import org.apache.http.cookie.SM;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -67,6 +67,7 @@ public class MessageManager {
     }
 
     private static String doJob(Settings s) {
+        System.out.println("eeeeeeeeeee");
         String divider= "\n=====================\n\n";
         StringBuilder sb = new StringBuilder();
         for (String bank : s.getBanks()) {

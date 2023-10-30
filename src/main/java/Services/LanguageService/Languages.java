@@ -1,11 +1,6 @@
-package Services.SettingsService;
+package Services.LanguageService;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
+import Services.LanguageService.LanguageData;
 
 public class Languages {
     public static final LanguageData ukrainianLanguage = new LanguageData(

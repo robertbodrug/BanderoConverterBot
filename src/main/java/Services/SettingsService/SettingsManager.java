@@ -1,20 +1,51 @@
 package Services.SettingsService;
 
+import java.io.IOException;
+import java.util.Set;
+
 public class SettingsManager {
     //додати функцію зміни налаштувань
 
-    private Settings settings = new Settings();
-
-    public Settings getSettings() {
-        return settings;
+    public static Settings getSettings(long chatId) throws IOException {
+        return SettingsReader.getSettings(chatId);
     }
 
-    public void setDecimalPlaces(int places){
-        settings.setDecimalPlaces(places);
+    public static void setDecimalPlaces(int places,long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        s.setDecimalPlaces(places);
+        SettingsSaver.SaveSettings(chatId,s);
     }
-    public void setLanguages(String language){settings.setLanguage(language);}
-    public void addBanks(String bank) {settings.addBanks(bank);}
-    public void addCurrencies(String currency) {settings.addCurrencies(currency);}
-    public void setTime(String time) {settings.setTime(time);}
-    public String getTime() {return settings.getTime();}
+    public static void setLanguages(String language,long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        s.setLanguage(language);
+        SettingsSaver.SaveSettings(chatId,s);
+    }
+    public static void addBanks(String bank,long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        Set<String> banks = s.getBanks();
+        if(banks.contains(bank)) {
+            banks.remove(bank);
+    } else {
+            banks.add(bank);
+    }
+        s.setBanks(banks);
+        SettingsSaver.SaveSettings(chatId,s);
+    }
+    public static void addCurrencies(String currency,long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        Set<String> currencies = s.getCurrencies();
+        if(currencies.contains(currency)) {
+            currencies.remove(currency);
+    }else {
+            currencies.add(currency);
+        }
+        s.setCurrencies(currencies);
+            SettingsSaver.SaveSettings(chatId,s);
+    }
+    public static void addTimeForNotification(String time,long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        s.setTime(time);
+        SettingsSaver.SaveSettings(chatId,s);
+    }
+
 }

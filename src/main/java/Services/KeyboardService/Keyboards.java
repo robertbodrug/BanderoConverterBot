@@ -1,6 +1,6 @@
 package Services.KeyboardService;
 
-import Services.SettingsService.LanguageData;
+import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -129,7 +129,7 @@ public enum Keyboards {
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text(s.getLanguage().getBackButton())
-                            .callbackData("settings")
+                            .callbackData("back")
                             .build()))
                     .build();
         }
@@ -198,7 +198,7 @@ public enum Keyboards {
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text(s.getLanguage().getBackButton())
-                            .callbackData("settings")
+                            .callbackData("back")
                             .build()))
                     .build();
         }
