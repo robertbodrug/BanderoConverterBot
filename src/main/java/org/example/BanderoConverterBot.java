@@ -1,10 +1,10 @@
 package org.example;
 
+import Services.APIService.NotificationManager;
 import Services.MessageService.MessageManager;
 import Services.SettingsService.Settings;
 import Services.SettingsService.SettingsManager;
 import Services.SettingsService.SettingsReader;
-import Services.SettingsService.SettingsSaver;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -76,7 +76,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
          switch (text) {
              //добавити метод SM і виконати Message
              case "settings","decimal_places","languages","banks","currency","notification","back" -> execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
-            case "privat", "mono", "nbu","clearBanks" -> {
+            case "privat", "mono", "nbu" -> {
                 SettingsManager.addBanks(text,id);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
@@ -88,12 +88,25 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 SettingsManager.setLanguages(text,id);
                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
-            case "USD", "EUR","clearCurrencies" -> {
-                SettingsManager.addCurrencies(text,id);
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+             case "USD", "EUR" -> {
+                 SettingsManager.addCurrencies(text,id);
+                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+             }
+            case "number_0","number_1","number_2",
+                    "number_3", "number_4","number_5","number_6",
+                    "number_7", "number_8","number_9" -> {
+                SettingsManager.addTimeForNotification(text.substring(7) + (SettingsManager.getSettings(id).getTime().length() == 1 ? ":" : ""), id);
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
             }
-                default ->                 execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
-
+            case "on","delete","off" -> {
+                if (text.equals("delete")) {
+                    SettingsManager.getSettings(id).deleteDigitFromTime();
+                } else {
+                    SettingsManager.addTimeForNotification("0",id);
+                }
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
+            }
+                default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
          };
     }
 

@@ -1,5 +1,6 @@
 package Services.MessageService;
 
+import org.example.BanderoConverterBot;
 import Services.APIService.ExchangeRate;
 import Services.APIService.ExchangeRateManager;
 import Services.KeyboardService.KeyboardManager;
@@ -7,7 +8,10 @@ import Services.LanguageService.LanguageData;
 import Services.SettingsService.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import static Services.KeyboardService.Keyboards.*;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,7 +44,7 @@ public class MessageManager {
         LanguageData language = s.getLanguage();
         return switch (data) {
             case "doJob" -> doJob(s);
-            case "on" -> notificationManager(s.getTime());
+            case "on" -> doJob(s);
             case "settings" -> language.getSettingsMenu().settingsText();
             case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();
             case "banks", "privat", "mono", "nbu" -> language.getBanksMenu().banksText();
@@ -113,7 +117,8 @@ public class MessageManager {
         }
     }
     private static Timer timer = new Timer();
-    public static String notificationManager(String t) {
+    public String notificationManager(String t, Settings s) {
+        String doJob = doJob(s);
         int hours = Integer.parseInt(t.substring(0,2));
         int minutes = Integer.parseInt(t.substring(3));
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -122,10 +127,11 @@ public class MessageManager {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                System.out.println(sdf.format(new Date()));
+                NOTIFICATION_KEYBOARD.getKeyboard(s);
+                getTextForMessage("doJob", s);
             }
         }, executionTime);
-        return sdf.toString();
+        return "doJob";
     }
     private static Date getTime(int hours, int minutes) {
         Calendar calendar = Calendar.getInstance();
