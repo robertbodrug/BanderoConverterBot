@@ -12,12 +12,16 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
-
 
 
     @Override
@@ -86,19 +90,73 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             case "number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9" -> {
-                SettingsManager.addTimeForNotification(text.substring(7) + (SettingsManager.getSettings(id).getTime().length() == 1 ? ":" : ""), id);
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
+                SettingsManager.addTimeForNotification(text.substring(7) + (SettingsReader.getSettings(id).getTime().length() == 1 ? ":" : ""), id);
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
-            case "on","delete","off" -> {
+            case "on" -> {
+                SettingsManager.setIsWaitingForNotification(id,true);
+                if(notificationTask == null){doNotification(SettingsReader.getSettings(id).getTime(), SettingsReader.getSettings(id), id);}
+            }
+            case "delete","off" -> {
                 if (text.equals("delete")) {
-                    SettingsManager.getSettings(id).deleteDigitFromTime();
+                    SettingsManager.deleteDigitFromTime(id);
                 } else {
-                    SettingsManager.addTimeForNotification("0",id);
+                    if (notificationTask != null) {
+                        notificationTask.cancel();
+                        notificationTask = null;
+                        System.out.println("Notification task is closed");
+                    }
+                    SettingsManager.clearTimeAndSetNotificationOff(id);
                 }
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsManager.getSettings(id)));
+                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
                 default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
          };
+    }
+    private TimerTask notificationTask;
+    private final Object lock = new Object();
+    private Timer timer = new Timer();
+    public void doNotification(String t, Settings s, long id) throws IOException {
+        int hours = Integer.parseInt(t.substring(0, 2));
+        int minutes = Integer.parseInt(t.substring(3));
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date executionTime = getTime(hours, minutes);
+        System.out.println("Notification will be made at " + sdf.format(executionTime));
+            notificationTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        execute(MessageManager.MessageBuilder(id, "doJob", s));
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println("The notification was made at " + sdf.format(new Date()));
+                    try {
+                        if(SettingsReader.getSettings(id).isWaitingForNotification()) {
+                            doNotification(t,s,id);
+                        }else{
+                            notificationTask.cancel();
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            };
+            timer.schedule(notificationTask, executionTime);
+    }
+    private Date getTime(int hours, int minutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date now = new Date();
+        if (now.after(calendar.getTime())) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return calendar.getTime();
     }
 
 

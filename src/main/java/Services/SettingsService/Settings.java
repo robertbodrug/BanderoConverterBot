@@ -17,6 +17,7 @@ public class Settings {
     private Set<String> banks = new HashSet<>();
     private Set<String> currencies = new HashSet<>();
     private StringBuffer times = new StringBuffer();
+    private boolean isWaitingForNotification = false;
     public Settings() {
         decimalPlaces = 2;
         banks.add("mono");
@@ -48,6 +49,12 @@ public class Settings {
     public void deleteDigitFromTime() {
         times.deleteCharAt(getTime().length() - 1);
     }
+    public void clearTimeAndSetNotificationOff() {
+        times.delete(0, getTimes().length());
+        if(isWaitingForNotification) {
+            isWaitingForNotification = false;
+        }
+    }
     @Override
     public String toString() {
         return "Settings{" +
@@ -56,6 +63,7 @@ public class Settings {
                 ", banks=" + banks +
                 ", currencies=" + currencies +
                 ", timeForNotification=" + times +
+                "isWaitingForNotification" + isWaitingForNotification +
                 '}';
     }
 }

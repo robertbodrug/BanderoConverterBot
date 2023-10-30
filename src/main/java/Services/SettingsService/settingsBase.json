@@ -1,1 +1,1 @@
-{"301703883":{"decimalPlaces":2,"language":"uk","banks":["mono","privat","nbu"],"currencies":["USD","EUR"],"times":""},"977830218":{"decimalPlaces":4,"language":"uk","banks":["mono","privat"],"currencies":["USD","EUR"],"times":""}}
+{"301703883":{"decimalPlaces":2,"language":"uk","banks":["nbu","mono","privat"],"currencies":["USD","EUR"],"times":"","isWaitingForNotification":false},"977830218":{"decimalPlaces":4,"language":"uk","banks":["mono","privat"],"currencies":["USD","EUR"],"times":"","isWaitingForNotification":false}}

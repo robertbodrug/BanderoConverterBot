@@ -47,5 +47,20 @@ public class SettingsManager {
         s.setTime(time);
         SettingsSaver.SaveSettings(chatId,s);
     }
+    public static void clearTimeAndSetNotificationOff(long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        s.clearTimeAndSetNotificationOff();
+        SettingsSaver.SaveSettings(chatId,s);
+    }
+    public static void deleteDigitFromTime(long chatId) throws IOException {
+        Settings s = getSettings(chatId);
+        s.deleteDigitFromTime();
+        SettingsSaver.SaveSettings(chatId,s);
+    }
+    public static void setIsWaitingForNotification(long chatId, boolean isWaiting) throws IOException {
+        Settings s = getSettings(chatId);
+        s.setWaitingForNotification(isWaiting);
+        SettingsSaver.SaveSettings(chatId,s);
+    }
 
 }

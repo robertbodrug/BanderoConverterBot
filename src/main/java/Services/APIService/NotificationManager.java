@@ -10,21 +10,22 @@ import java.util.TimerTask;
 
 public class NotificationManager{
     private Timer timer = new Timer();
-    public void doNotification(final Runnable task, String t, Settings s) {
+    public Settings doNotification(final Runnable task, String t, Settings s) {
         int hours = Integer.parseInt(t.substring(0,2));
         int minutes = Integer.parseInt(t.substring(3));
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Date executionTime = getTime(hours, minutes);
 
         System.out.println("Метод запускається о " + sdf.format(executionTime));
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                Settings sm = s;
                 task.run();
                 System.out.println("Метод виконується о " + sdf.format(new Date()));
             }
         }, executionTime);
+        return s;
     }
     private Date getTime(int hours, int minutes) {
         Calendar calendar = Calendar.getInstance();
