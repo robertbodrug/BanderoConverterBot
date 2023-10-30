@@ -12,17 +12,27 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
 
+//    {
+//        HashMap<Long, Settings> allSettings = SettingsReader.getAllSettings();
+//        for (Map.Entry s : Map.Entry()){
+//            if(isNotification){
+//                logic of check time
+//                        execute(MessageManager.MessageBuilder(s.getKey(),"doJob",s.getValue()));
+//            }
+//        }
+//    }
 
     @Override
     public void onUpdateReceived(Update update) {
