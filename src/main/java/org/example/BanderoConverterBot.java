@@ -1,6 +1,5 @@
 package org.example;
 
-import Services.APIService.NotificationManager;
 import Services.MessageService.MessageManager;
 import Services.SettingsService.Settings;
 import Services.SettingsService.SettingsManager;
@@ -18,9 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
 

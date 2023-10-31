@@ -31,13 +31,13 @@ public class ApiSettings {
         switch (currencyA) {
             case "USD" -> this.currencyA = getBank().equals("privat") ? currencyA : "840";
             case "EUR" -> this.currencyA = getBank().equals("privat") ? currencyA : "978";
-            case "JPY" -> this.currencyA = getBank().equals("privat") ? null : "392";
-            case "PLN" -> this.currencyA = getBank().equals("privat") ? null : "985";
-            case "CZK" -> this.currencyA = getBank().equals("privat") ? null : "203";
-            case "DKK" -> this.currencyA = getBank().equals("privat") ? null : "208";
-            case "NOK" -> this.currencyA = getBank().equals("privat") ? null : "578";
-            case "SEK" -> this.currencyA = getBank().equals("privat") ? null : "752";
-            default -> this.currencyA = getBank().equals("privat") ? null : "484";
+            case "JPY" -> {this.currencyA = getBank().equals("privat") ? null : "392"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            case "PLN" -> {this.currencyA = getBank().equals("privat") ? null : "985"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            case "CZK" -> {this.currencyA = getBank().equals("privat") ? null : "203"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            case "DKK" -> {this.currencyA = getBank().equals("privat") ? null : "208"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            case "NOK" -> {this.currencyA = getBank().equals("privat") ? null : "578"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            case "SEK" -> {this.currencyA = getBank().equals("privat") ? null : "752"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
+            default -> {this.currencyA = getBank().equals("privat") ? null : "484"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
         }
     }
 

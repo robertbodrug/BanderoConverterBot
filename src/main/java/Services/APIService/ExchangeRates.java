@@ -63,33 +63,35 @@ public class ExchangeRates {
         return null;
     }
     public void createExchangeRates(String bank) {
-        String[] currencies = new String[]{"USD", "EUR"};
+        String[] currencies = new String[]{"USD", "EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN"};
         settings = new ApiSettings();
         settings.setBank(bank);
         for (JsonElement element : Objects.requireNonNull(createJsonArrayExchangeRate(settings))) {
             for (String currency : currencies) {
                 settings.setCurrencyA(currency);
-                JsonObject object = element.getAsJsonObject();
-                if (settings.getCurrencyA() != null && settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
-                    if ((settings.getCurrencyB() == null || settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString())) &&
-                            settings.getBank().equals("privat") ? settings.getCurrencyA().equals(object.get(settings.getCurrencyAKeyForJson()).getAsString()) :
-                            Integer.parseInt(settings.getCurrencyA()) == object.get(settings.getCurrencyAKeyForJson()).getAsInt()) {
-                        ExchangeRate exchangeRate = new ExchangeRate();
-                        exchangeRate.setBank(bank);
-                        exchangeRate.setCurrencyA(object.get(settings.getCurrencyAKeyForJson()).getAsString());
-                        exchangeRate.setBuy(object.get(settings.getBuyKeyForJson()).getAsString());
-                        if (settings.getSellKeyForJson() != null) {
-                            exchangeRate.setSell(object.get(settings.getSellKeyForJson()).getAsString());
-                        }
-                        if (bank.equals("privat")) {
-                            exchangeRate.setCurrencyA(currency);
-                            privat.add(exchangeRate);
-                        } else if (bank.equals("mono")) {
-                            exchangeRate.setCurrencyA(currency);
-                            mono.add(exchangeRate);
-                        } else {
-                            exchangeRate.setCurrencyA(currency);
-                            nbu.add(exchangeRate);
+                if (settings.getCurrencyA() != null) {
+                    JsonObject object = element.getAsJsonObject();
+                    if (settings.getCurrencyA() != null && settings.getCurrencyB() == null || object.get(settings.getCurrencyBKeyForJson()).getAsString().equals(settings.getCurrencyB())) {
+                        if ((settings.getCurrencyB() == null || settings.getCurrencyB().equals(object.get(settings.getCurrencyBKeyForJson()).getAsString())) &&
+                                settings.getBank().equals("privat") ? settings.getCurrencyA().equals(object.get(settings.getCurrencyAKeyForJson()).getAsString()) :
+                                Integer.parseInt(settings.getCurrencyA()) == object.get(settings.getCurrencyAKeyForJson()).getAsInt()) {
+                            ExchangeRate exchangeRate = new ExchangeRate();
+                            exchangeRate.setBank(bank);
+                            exchangeRate.setCurrencyA(object.get(settings.getCurrencyAKeyForJson()).getAsString());
+                            exchangeRate.setBuy(object.get(settings.getBuyKeyForJson()).getAsString());
+                            if (settings.getSellKeyForJson() != null) {
+                                exchangeRate.setSell(object.get(settings.getSellKeyForJson()).getAsString());
+                            }
+                            if (bank.equals("privat")) {
+                                exchangeRate.setCurrencyA(currency);
+                                privat.add(exchangeRate);
+                            } else if (bank.equals("mono")) {
+                                exchangeRate.setCurrencyA(currency);
+                                mono.add(exchangeRate);
+                            } else {
+                                exchangeRate.setCurrencyA(currency);
+                                nbu.add(exchangeRate);
+                            }
                         }
                     }
                 }
