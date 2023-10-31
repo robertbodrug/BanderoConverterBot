@@ -80,7 +80,7 @@ public enum Keyboards {
                             .build()))
                     .keyboardRow(List.of(InlineKeyboardButton.builder()
                             .text(s.getLanguage().getBackButton())
-                            .callbackData("settings")
+                            .callbackData("back")
                             .build()))
                     .build();
         }
