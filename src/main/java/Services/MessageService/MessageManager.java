@@ -75,11 +75,11 @@ public class MessageManager {
     }
     private static String getPrettyNotification(Settings s) {
         StringBuilder stringBuffer = new StringBuilder();
-        stringBuffer.append("Ваші налаштування опвіщень:\nЧас: ").append(s.getTime()).append("\n\nБанки:\n");
+        stringBuffer.append("Ваші налаштування опвіщень:\nЧас, коли оповіщення будуть приходити: ").append(s.getTime()).append("\uD83D\uDD50 \n\nОбрані банки:\n");
         for(String bank : s.getBanks()) {
             stringBuffer.append(getPrettyBanks(bank, s));
         }
-        stringBuffer.append("\nВалюти:\n");
+        stringBuffer.append("\nОбрані валюти:\n");
         for(String currency : s.getCurrencies()) {
             stringBuffer.append(currency).append("\n");
         }
