@@ -134,9 +134,7 @@ public enum Keyboards {
     NOTIFICATION_KEYBOARD {
         @Override
         public InlineKeyboardMarkup getKeyboard(Settings s) {
-
             List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
-
             List<InlineKeyboardButton> numberButtons1 = new ArrayList<>();
             for (int i = 0; i <= 4; i++) {
                 InlineKeyboardButton button = new InlineKeyboardButton(Integer.toString(i));
@@ -151,30 +149,22 @@ public enum Keyboards {
                 numberButtons2.add(button);
             }
             keyboard.add(numberButtons2);
-
             List<InlineKeyboardButton> okButton = new ArrayList<>();
             InlineKeyboardButton ok = new InlineKeyboardButton("Ввімкнути");
             ok.setCallbackData("on");
             okButton.add(ok);
-
             InlineKeyboardButton delete = new InlineKeyboardButton("Видалити");
             delete.setCallbackData("delete");
             okButton.add(delete);
-
             keyboard.add(okButton);
-
             List<InlineKeyboardButton> controlButtons = new ArrayList<>();
             InlineKeyboardButton addTime = new InlineKeyboardButton("Вимкнути");
             addTime.setCallbackData("off");
             controlButtons.add(addTime);
-
-
             InlineKeyboardButton back = new InlineKeyboardButton("Назад");
             back.setCallbackData("settings");
             controlButtons.add(back);
-
             keyboard.add(controlButtons);
-
             InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(keyboard);
             return keyboardMarkup;
         }
