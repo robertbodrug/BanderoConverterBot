@@ -30,7 +30,7 @@ public class ApiSettings {
     public void setCurrencyA(String currencyA) {
         switch (currencyA) {
             case "USD" -> this.currencyA = getBank().equals("privat") ? currencyA : "840";
-            case "EUR" -> this.currencyA = getBank().equals("privat") ? currencyA : "978";
+            case "EUR" -> {this.currencyA = getBank().equals("privat") ? currencyA : "978"; if(getBank().equals("mono")){buyKeyForJson = "rateBuy";}}
             case "JPY" -> {this.currencyA = getBank().equals("privat") ? null : "392"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
             case "PLN" -> {this.currencyA = getBank().equals("privat") ? null : "985"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
             case "CZK" -> {this.currencyA = getBank().equals("privat") ? null : "203"; if(getBank().equals("mono")){buyKeyForJson = "rateCross";}}
