@@ -44,7 +44,7 @@ public class Languages {
             "Joke",
             "Back",
             new String[]{"Why did the teddy bear say no to dessert? Because she was stuffed.",
-                    "Why did the soccer player take so long to eat dinner? Because he thought he couldn’t use his hands..",
+                    "Why did the soccer player take so long to eat dinner? Because he thought he couldn’t use his hands...",
                     "Sandy’s mum has four kids; North, West, East. What is the name of the fourth child? Sandy, obviously!",
                     "Why did the chicken cross the playground? To get to the other slide.",
                     "Why can’t you ever tell a joke around glass? It could crack up."
@@ -75,7 +75,7 @@ public class Languages {
             "Ottieni corso",
             "Scherzo",
             "Indietro",
-            new String[]{"Perché l'orsacchiotto ha rifiutato il dessert? Era già pieno.",
+            new String[]{"Perché l'orsacchiotto ha rifiutato il desserto? Era già pieno.",
                     "Perché il giocatore di calcio ha impiegato così tanto tempo per pranzare? Perché pensava di non poter usare le mani.",
                     "La mamma di Sandy ha quattro figli: Nord, Ovest, Est. Come si chiama il quarto figlio? Sandy, ovviamente!",
                     "Perché la gallina ha attraversato di corsa il cortile? Per correre verso la strada successiva.",
