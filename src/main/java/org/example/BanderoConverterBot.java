@@ -4,6 +4,7 @@ import Services.MessageService.MessageManager;
 import Services.SettingsService.Settings;
 import Services.SettingsService.SettingsManager;
 import Services.SettingsService.SettingsReader;
+
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -13,22 +14,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class BanderoConverterBot extends TelegramLongPollingBot {
-
-//    {
-//        HashMap<Long, Settings> allSettings = SettingsReader.getAllSettings();
-//        for (Map.Entry s : Map.Entry()){
-//            if(isNotification){
-//                logic of check time
-//                        execute(MessageManager.MessageBuilder(s.getKey(),"doJob",s.getValue()));
-//            }
-//        }
-//    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -60,7 +48,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             }
         }
 
-        }
+    }
 
 
     private void ComandResponser(Message msg) throws TelegramApiException, IOException {
@@ -117,11 +105,10 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 }
                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
-                default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
+            default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
          };
     }
     private TimerTask notificationTask;
-    private final Object lock = new Object();
     private Timer timer = new Timer();
     public void doNotification(String t, Settings s, long id) throws IOException {
         int hours = Integer.parseInt(t.substring(0, 2));
@@ -157,12 +144,10 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
         calendar.set(Calendar.MINUTE, minutes);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-
         Date now = new Date();
         if (now.after(calendar.getTime())) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
         return calendar.getTime();
     }
 

@@ -44,7 +44,8 @@ public class MessageManager {
             case "banks", "privat", "mono", "nbu" -> language.getBanksMenu().banksText();
             case "decimal_places", "0", "1", "2", "3", "4" -> language.getDecimalPlacesText().formatted(s.getDecimalPlaces());
             case "currency", "USD", "EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN" -> language.getCurrencyMenu().currencyText() + s.getCurrencies();
-            case "notification","number_0","number_1","number_2",
+            case "notification" -> !s.isWaitingForNotification() ? "\nВведіть час у форматі HH:MM на який буде приходити оповіщення: " + s.getTime() : getPrettyNotification(s);
+            case "number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9",
                     "delete","off" -> "\nВведіть час у форматі HH:MM на який буде приходити оповіщення: " + s.getTime();
@@ -75,7 +76,7 @@ public class MessageManager {
     }
     private static String getPrettyNotification(Settings s) {
         StringBuilder stringBuffer = new StringBuilder();
-        stringBuffer.append("Ваші налаштування опвіщень:\nЧас, коли оповіщення будуть приходити: ").append(s.getTime()).append("\uD83D\uDD50 \n\nОбрані банки:\n");
+        stringBuffer.append("Ваші налаштування опвіщень:\uD83D\uDD14\n\nЧас, коли оповіщення будуть приходити: ").append(s.getTime()).append("\uD83D\uDD50 \n\nОбрані банки:\n");
         for(String bank : s.getBanks()) {
             stringBuffer.append(getPrettyBanks(bank, s));
         }
