@@ -37,7 +37,7 @@ public class MessageManager {
     public static String getTextForMessage(String data, Settings s) {
         LanguageData language = s.getLanguage();
         return switch (data) {
-            case "doJob" -> doJob(s);
+            case "doJob" -> DoJobPrettier.DoJob(s);
             case "on" -> getPrettyNotification(s);
             case "settings" -> language.getSettingsMenu().settingsText();
             case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();
@@ -56,28 +56,12 @@ public class MessageManager {
         };
     }
 
-    private static String doJob(Settings s) {
-        String divider= "\n=====================\n\n";
-        StringBuilder sb = new StringBuilder();
-        for (String bank : s.getBanks()) {
-            sb.append(getPrettyBanks(bank, s));
-            for (String currency : s.getCurrencies()) {
-                ExchangeRate rate = ExchangeRateManager.getExchangeRate(bank,currency);
-                sb.append(s.getLanguage().getDoJobText()
-                        .formatted(currency,
-                                getPrettyRate(rate.getBuy(),s),
-                                bank.equals("nbu")?"---":getPrettyRate(rate.getSell(),s)));
-            }
-            sb.append(divider);
-        }
-        sb.delete(sb.length()-24,sb.length());
-        return sb.toString();
-    }
+
     private static String getPrettyNotification(Settings s) {
         StringBuilder stringBuffer = new StringBuilder();
         stringBuffer.append("Ваші налаштування опвіщень:\nЧас, коли оповіщення будуть приходити: ").append(s.getTime()).append("\uD83D\uDD50 \n\nОбрані банки:\n");
         for(String bank : s.getBanks()) {
-            stringBuffer.append(getPrettyBanks(bank, s));
+            stringBuffer.append(DoJobPrettier.getPrettyBanks(bank, s));
         }
         stringBuffer.append("\nОбрані валюти:\n");
         for(String currency : s.getCurrencies()) {
@@ -86,41 +70,8 @@ public class MessageManager {
         return stringBuffer.toString();
     }
 
-    private static String getPrettyBanks(String bank, Settings s) {
-        return switch (bank) {
-            case "privat" -> s.getLanguage().getBanksMenu().privatBankButton() + " ⬇\n";
-            case "mono" -> s.getLanguage().getBanksMenu().monoBankButton() + "⬇\n";
-            case "nbu" -> s.getLanguage().getBanksMenu().nbuBankButton() + "⬇\n";
-            default -> throw new IllegalStateException("Unexpected value: " + bank);
-        };
-    }
 
-    public static String getPrettyRate(String rate, Settings s) {
-        int decimalPlaces = s.getDecimalPlaces();
-        int rateLenght = rate.indexOf('.')+1+(decimalPlaces==0?-1:decimalPlaces);
-        if(rate.length()<rateLenght){
-            return   rate+String.join("", () -> new Iterator<>() {
-                int count = 0;
 
-                @Override
-                public boolean hasNext() {
-                    if (rate.length() + count < rateLenght) {
-                        count++;
-                        return true;
-                    }
-                    return false;
 
-                }
-
-                @Override
-                public String next() {
-                    return "0";
-                }
-            });
-        }
-        else {
-            return rate.substring(0, rateLenght);
-        }
-    }
 }
 

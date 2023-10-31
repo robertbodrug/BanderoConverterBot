@@ -14,6 +14,8 @@ public class LanguageData {
         public record BanksMenu(String banksText, String privatBankButton, String monoBankButton,
                                 String nbuBankButton) {
         }
+    public record DoJobText(String BuySellText, String NbuRate) {
+    }
         public record CurrencyMenu(String currencyText, String firstCurrencyButton, String secondCurrencyButton,
                                    String thirdCurrencyButton) {
         }
@@ -26,13 +28,12 @@ public class LanguageData {
 
     private final String startText;
     private final String decimalPlacesText;
-    private final String doJobText;
     private final String doJobButton;
     private final String jokeButton;
     private final String backButton;
     private final String[] jokes;
 
-
+    private final DoJobText doJobText;
     private final SettingsMenu settingsMenu;
     private final BanksMenu banksMenu;
     private final CurrencyMenu currencyMenu;
