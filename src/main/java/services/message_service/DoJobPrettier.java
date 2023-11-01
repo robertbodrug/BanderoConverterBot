@@ -1,15 +1,15 @@
-package Services.MessageService;
+package services.message_service;
 
-import Services.APIService.ExchangeRate;
-import Services.APIService.ExchangeRateManager;
-import Services.LanguageService.LanguageData;
-import Services.SettingsService.Settings;
+import services.api_service.ExchangeRate;
+import services.api_service.ExchangeRateManager;
+import services.language_service.LanguageData;
+import services.settings_service.Settings;
 
 import java.util.Iterator;
 import java.util.Objects;
 
 public class DoJobPrettier {
-    public static String DoJob(Settings s){
+    public static String doJob(Settings s){
         //
         String divider= "\n=====================\n\n";
         StringBuilder sb = new StringBuilder();

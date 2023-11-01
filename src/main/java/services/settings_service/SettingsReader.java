@@ -1,4 +1,4 @@
-package Services.SettingsService;
+package services.settings_service;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -6,7 +6,6 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 

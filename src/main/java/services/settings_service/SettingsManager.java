@@ -1,4 +1,4 @@
-package Services.SettingsService;
+package services.settings_service;
 
 import java.io.IOException;
 import java.util.Set;
@@ -13,12 +13,12 @@ public class SettingsManager {
     public static void setDecimalPlaces(int places,long chatId) throws IOException {
         Settings s = getSettings(chatId);
         s.setDecimalPlaces(places);
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void setLanguages(String language,long chatId) throws IOException {
         Settings s = getSettings(chatId);
         s.setLanguage(language);
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void addBanks(String bank,long chatId) throws IOException {
         Settings s = getSettings(chatId);
@@ -29,7 +29,7 @@ public class SettingsManager {
             banks.add(bank);
     }
         s.setBanks(banks);
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void addCurrencies(String currency,long chatId) throws IOException {
         Settings s = getSettings(chatId);
@@ -40,27 +40,27 @@ public class SettingsManager {
             currencies.add(currency);
         }
         s.setCurrencies(currencies);
-            SettingsSaver.SaveSettings(chatId,s);
+            SettingsSaver.saveSettings(chatId,s);
     }
     public static void addTimeForNotification(String time,long chatId) throws IOException {
         Settings s = getSettings(chatId);
         s.setTime(time);
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void clearTimeAndSetNotificationOff(long chatId) throws IOException {
         Settings s = getSettings(chatId);
         s.clearTimeAndSetNotificationOff();
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void deleteDigitFromTime(long chatId) throws IOException {
         Settings s = getSettings(chatId);
         s.deleteDigitFromTime();
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
     public static void setIsWaitingForNotification(long chatId, boolean isWaiting) throws IOException {
         Settings s = getSettings(chatId);
         s.setWaitingForNotification(isWaiting);
-        SettingsSaver.SaveSettings(chatId,s);
+        SettingsSaver.saveSettings(chatId,s);
     }
 
 }

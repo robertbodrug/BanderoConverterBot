@@ -1,4 +1,4 @@
-package Services.LanguageService;
+package services.language_service;
 
 
 import lombok.AllArgsConstructor;

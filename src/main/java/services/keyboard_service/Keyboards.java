@@ -1,7 +1,7 @@
-package Services.KeyboardService;
+package services.keyboard_service;
 
-import Services.LanguageService.LanguageData;
-import Services.SettingsService.Settings;
+import services.language_service.LanguageData;
+import services.settings_service.Settings;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import java.util.ArrayList;

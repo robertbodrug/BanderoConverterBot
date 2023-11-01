@@ -1,9 +1,9 @@
 package doJob;
 
-import Services.APIService.ExchangeRate;
-import Services.APIService.ExchangeRateManager;
-import Services.LanguageService.LanguageData;
-import Services.SettingsService.Settings;
+import services.api_service.ExchangeRate;
+import services.api_service.ExchangeRateManager;
+import services.language_service.LanguageData;
+import services.settings_service.Settings;
 
 import java.util.Iterator;
 import java.util.Objects;

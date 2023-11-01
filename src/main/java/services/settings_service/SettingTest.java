@@ -1,8 +1,5 @@
-package Services.SettingsService;
+package services.settings_service;
 
-import Services.MessageService.MessageManager;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SettingTest {

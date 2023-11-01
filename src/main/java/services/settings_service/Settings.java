@@ -1,7 +1,7 @@
-package Services.SettingsService;
+package services.settings_service;
 
-import Services.LanguageService.LanguageData;
-import Services.LanguageService.Languages;
+import services.language_service.LanguageData;
+import services.language_service.Languages;
 import lombok.Getter;
 import lombok.Setter;
 

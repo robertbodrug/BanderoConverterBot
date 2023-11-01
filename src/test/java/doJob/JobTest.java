@@ -1,10 +1,7 @@
 package doJob;
 
-import Services.APIService.ExchangeRate;
-import Services.APIService.ExchangeRateManager;
-import Services.APIService.ExchangeRates;
-import Services.MessageService.DoJobPrettier;
-import Services.SettingsService.Settings;
+import services.message_service.DoJobPrettier;
+import services.settings_service.Settings;
 
 import java.util.Set;
 
@@ -16,7 +13,7 @@ settings.setCurrencies(Set.of("USD","EUR","JPY","PLN","CZK","DKK","NOK","SEK","M
 settings.setBanks(Set.of("privat","mono","nbu"));
 settings.setDecimalPlaces(3);
 
-        System.out.println(DoJobPrettier.DoJob(settings));
+        System.out.println(DoJobPrettier.doJob(settings));
         System.out.println(Prettier.getCutRate("0", 10));
         System.out.println(Prettier.getCutRate("541.554", 100));
 

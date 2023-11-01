@@ -1,6 +1,4 @@
-package Services.LanguageService;
-
-import Services.LanguageService.LanguageData;
+package services.language_service;
 
 public class Languages {
     public static final LanguageData ukrainianLanguage = new LanguageData(

@@ -1,34 +1,31 @@
-package Services.MessageService;
+package services.message_service;
 
-import Services.APIService.ExchangeRate;
-import Services.APIService.ExchangeRateManager;
-import Services.KeyboardService.KeyboardManager;
-import Services.LanguageService.LanguageData;
-import Services.SettingsService.Settings;
+import services.keyboard_service.KeyboardManager;
+import services.language_service.LanguageData;
+import services.settings_service.Settings;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import java.util.*;
 
 
 public class MessageManager {
-    public static SendMessage MessageBuilder(Long id, String data, Settings s) throws TelegramApiException {
+    public static SendMessage messageBuilder(Long id, String data, Settings s) throws TelegramApiException {
 
         return SendMessage.builder()
                 .chatId(id)
                 .text(getTextForMessage(data, s))
-                .replyMarkup(KeyboardManager.KeyboardBuilder(data, s))
+                .replyMarkup(KeyboardManager.keyboardBuilder(data, s))
                 .parseMode("HTML")
                 .build();
     }
 
-    public static EditMessageText MessageTextEditer(Long id, String data, int msgId, Settings s) throws TelegramApiException {
+    public static EditMessageText messageTextEditer(Long id, String data, int msgId, Settings s) throws TelegramApiException {
 
         return EditMessageText.builder()
                 .chatId(id)
                 .messageId(msgId)
                 .text(getTextForMessage(data, s))
-                .replyMarkup(KeyboardManager.KeyboardBuilder(data, s))
+                .replyMarkup(KeyboardManager.keyboardBuilder(data, s))
                 .parseMode("HTML")
                 .build();
     }
@@ -37,7 +34,7 @@ public class MessageManager {
     public static String getTextForMessage(String data, Settings s) {
         LanguageData language = s.getLanguage();
         return switch (data) {
-            case "doJob" -> DoJobPrettier.DoJob(s);
+            case "doJob" -> DoJobPrettier.doJob(s);
             case "on" -> getPrettyNotification(s);
             case "settings" -> language.getSettingsMenu().settingsText();
             case "languages", "uk", "en","it" -> language.getLanguageMenu().LanguageText();

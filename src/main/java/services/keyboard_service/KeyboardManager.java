@@ -1,24 +1,24 @@
-package Services.KeyboardService;
+package services.keyboard_service;
 
-import Services.SettingsService.Settings;
+import services.settings_service.Settings;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import static Services.KeyboardService.Keyboards.*;
+import static services.keyboard_service.Keyboards.*;
 
 public class KeyboardManager {
-    public static EditMessageReplyMarkup KeyboardEditer(Long id, String data, int msgId,Settings s) throws TelegramApiException {
+    public static EditMessageReplyMarkup keyboardEditer(Long id, String data, int msgId, Settings s) throws TelegramApiException {
 
         EditMessageReplyMarkup newKb = EditMessageReplyMarkup.builder()
                 .chatId(id)
                 .messageId(msgId)
                 .build();
-        newKb.setReplyMarkup(KeyboardBuilder(data,s));
+        newKb.setReplyMarkup(keyboardBuilder(data,s));
         return newKb;
     }
 
-    public static InlineKeyboardMarkup KeyboardBuilder(String data, Settings s) throws TelegramApiException {
+    public static InlineKeyboardMarkup keyboardBuilder(String data, Settings s) throws TelegramApiException {
         //Додати виклик клавіатури
         return switch (data) {
             case "settings" -> SETTINGS_KEYBOARD.getKeyboard(s);

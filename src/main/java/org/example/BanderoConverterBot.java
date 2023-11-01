@@ -1,9 +1,9 @@
 package org.example;
 
-import Services.MessageService.MessageManager;
-import Services.SettingsService.Settings;
-import Services.SettingsService.SettingsManager;
-import Services.SettingsService.SettingsReader;
+import services.message_service.MessageManager;
+import services.settings_service.Settings;
+import services.settings_service.SettingsManager;
+import services.settings_service.SettingsReader;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
@@ -24,7 +24,8 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             Message msg = update.getMessage();
             if (msg.isCommand()) {
                 try {
-                    ComandResponser(msg);
+                    System.out.println("ss");
+                    comandResponser(msg);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -32,7 +33,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             }
             else {
                 try {
-                    execute(MessageManager.MessageBuilder(msg.getChatId(), "culo", SettingsManager.getSettings(msg.getChatId())));
+                    execute(MessageManager.messageBuilder(msg.getChatId(), "culo", SettingsManager.getSettings(msg.getChatId())));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
 
@@ -42,7 +43,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             CallbackQuery cq = update.getCallbackQuery();
             try {
                 System.out.println(cq.getData());
-                CallbackResponser(cq);
+                сallbackResponser(cq);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -51,10 +52,10 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
     }
 
 
-    private void ComandResponser(Message msg) throws TelegramApiException, IOException {
-       execute(MessageManager.MessageBuilder(msg.getChatId(),msg.getText().replace("/",""), SettingsManager.getSettings(msg.getChatId())));
+    private void comandResponser(Message msg) throws TelegramApiException, IOException {
+       execute(MessageManager.messageBuilder(msg.getChatId(),msg.getText().replace("/",""), SettingsManager.getSettings(msg.getChatId())));
     }
-    private void CallbackResponser(CallbackQuery cq) throws TelegramApiException, IOException {
+    private void сallbackResponser(CallbackQuery cq) throws TelegramApiException, IOException {
 
         String text = cq.getData();
         Long id = cq.getMessage().getChatId();
@@ -64,33 +65,33 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
         execute(close);
          switch (text) {
              //добавити метод SM і виконати Message
-             case "settings","decimal_places","languages","banks","currency","notification","back" -> execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+             case "settings","decimal_places","languages","banks","currency","notification","back" -> execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             case "privat", "mono", "nbu" -> {
                 SettingsManager.addBanks(text,id);
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
             case "0","1","2","3","4"-> {
                  SettingsManager.setDecimalPlaces(Integer.parseInt(text),id);
-                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                 execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
             case "uk","en","it" ->{
                 SettingsManager.setLanguages(text,id);
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
              case "USD", "EUR","JPY","PLN","CZK","DKK","NOK","SEK","MXN" -> {
                  SettingsManager.addCurrencies(text,id);
-                 execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                 execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
              }
             case "number_0","number_1","number_2",
                     "number_3", "number_4","number_5","number_6",
                     "number_7", "number_8","number_9" -> {
                 SettingsManager.addTimeForNotification(text.substring(7) + (SettingsReader.getSettings(id).getTime().length() == 1 ? ":" : ""), id);
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
             case "on" -> {
                 SettingsManager.setIsWaitingForNotification(id,true);
                 if(notificationTask == null){doNotification(SettingsReader.getSettings(id).getTime(), SettingsReader.getSettings(id), id);}
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
             case "delete","off" -> {
                 if (text.equals("delete")) {
@@ -103,9 +104,9 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                     }
                     SettingsManager.clearTimeAndSetNotificationOff(id);
                 }
-                execute(MessageManager.MessageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
+                execute(MessageManager.messageTextEditer(id, text, msgId, SettingsReader.getSettings(id)));
             }
-            default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
+            default -> execute(MessageManager.messageBuilder(id, text, SettingsReader.getSettings(id)));
          };
     }
 
@@ -123,7 +124,7 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
                 @Override
                 public void run() {
                     try {
-                        execute(MessageManager.MessageBuilder(id, "doJob", s));
+                        execute(MessageManager.messageBuilder(id, "doJob", s));
                     } catch (TelegramApiException e) {
                         throw new RuntimeException(e);
                     }
