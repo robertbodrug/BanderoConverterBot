@@ -16,7 +16,6 @@ public class DoJobPrettier {
         for (String bank : s.getBanks()) {
             sb.append(getPrettyBanks(bank, s));
             for (String currency : s.getCurrencies()) {
-
                 ExchangeRate rate = ExchangeRateManager.getExchangeRate(bank,currency);
                 sb.append(getPrettyRateString(rate,s));
             }
@@ -32,8 +31,8 @@ public class DoJobPrettier {
             sb.append("______________________\n");
             sb.append("UAH/%s\n".formatted(rate.getCurrencyA()));
             sb.append(rate.getBank().equals("nbu")?
-                    doJobText.NbuRate().formatted(rate.getBuy()):
-                    doJobText.BuySellText().formatted(rate.getBuy(), rate.getSell()));
+                    doJobText.NbuRate().formatted(getCutRate(rate.getBuy(),s.getDecimalPlaces())):
+                    doJobText.BuySellText().formatted(getCutRate(rate.getBuy(),s.getDecimalPlaces()), getCutRate(rate.getSell(),s.getDecimalPlaces())));
         }
         return sb.toString();
     }
@@ -46,31 +45,35 @@ public class DoJobPrettier {
         };
     }
 
-    private static String getPrettyRate(String rate, Settings s) {
-        int decimalPlaces = s.getDecimalPlaces();
-        int rateLenght = rate.indexOf('.')+1+(decimalPlaces==0?-1:decimalPlaces);
-        if(rate.length()<rateLenght){
-            return   rate+String.join("", () -> new Iterator<>() {
-                int count = 0;
+    private static String getCutRate(String rate, int decimalPlaces ) {
+        int index;
+        if((index=rate.indexOf('.'))!=-1){
+            int rateLength = index+1+(decimalPlaces==0?-1:decimalPlaces);
 
-                @Override
-                public boolean hasNext() {
-                    if (rate.length() + count < rateLenght) {
-                        count++;
-                        return true;
+            if(rate.length()<rateLength){
+                return   rate + String.join("", () -> new Iterator<>() {
+                    int count = 0;
+
+                    @Override
+                    public boolean hasNext() {
+                        if ((rate.length() + count) < rateLength) {
+                            count++;
+                            return true;
+                        }else return false;
                     }
-                    return false;
 
-                }
+                    @Override
+                    public String next() {
+                        return "0";
+                    }
+                });
+            }
+            else {
+                return rate.substring(0, rateLength);
+            }
 
-                @Override
-                public String next() {
-                    return "0";
-                }
-            });
         }
-        else {
-            return rate.substring(0, rateLenght);
-        }
+        else return "---";
+
     }
 }

@@ -108,6 +108,9 @@ public class BanderoConverterBot extends TelegramLongPollingBot {
             default -> execute(MessageManager.MessageBuilder(id, text, SettingsReader.getSettings(id)));
          };
     }
+
+
+
     private TimerTask notificationTask;
     private Timer timer = new Timer();
     public void doNotification(String t, Settings s, long id) throws IOException {

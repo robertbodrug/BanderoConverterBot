@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class Prettier {
-
     public static String DoJob(Settings s){
         //
         String divider= "\n=====================\n\n";
@@ -17,7 +16,6 @@ public class Prettier {
         for (String bank : s.getBanks()) {
             sb.append(getPrettyBanks(bank, s));
             for (String currency : s.getCurrencies()) {
-
                 ExchangeRate rate = ExchangeRateManager.getExchangeRate(bank,currency);
                 sb.append(getPrettyRateString(rate,s));
             }
@@ -33,12 +31,12 @@ public class Prettier {
             sb.append("______________________\n");
             sb.append("UAH/%s\n".formatted(rate.getCurrencyA()));
             sb.append(rate.getBank().equals("nbu")?
-                    doJobText.NbuRate().formatted(rate.getBuy()):
-                    doJobText.BuySellText().formatted(rate.getBuy(), rate.getSell()));
+                    doJobText.NbuRate().formatted(getCutRate(rate.getBuy(),s.getDecimalPlaces())):
+                    doJobText.BuySellText().formatted(getCutRate(rate.getBuy(),s.getDecimalPlaces()), getCutRate(rate.getSell(),s.getDecimalPlaces())));
         }
         return sb.toString();
     }
-    private static String getPrettyBanks(String bank, Settings s) {
+    public static String getPrettyBanks(String bank, Settings s) {
         return switch (bank) {
             case "privat" -> s.getLanguage().getBanksMenu().privatBankButton() + " ⬇\n";
             case "mono" -> s.getLanguage().getBanksMenu().monoBankButton() + "⬇\n";
@@ -47,21 +45,21 @@ public class Prettier {
         };
     }
 
-    private static String getPrettyRate(String rate, Settings s) {
-        int decimalPlaces = s.getDecimalPlaces();
-        int rateLenght = rate.indexOf('.')+1+(decimalPlaces==0?-1:decimalPlaces);
-        if(rate.length()<rateLenght){
-            return   rate+String.join("", () -> new Iterator<>() {
+    public static String getCutRate(String rate, int decimalPlaces ) {
+        int index;
+        if((index=rate.indexOf('.'))!=-1){
+            int rateLength = index+1+(decimalPlaces==0?-1:decimalPlaces);
+
+            if(rate.length()<rateLength){
+            return   rate + String.join("", () -> new Iterator<>() {
                 int count = 0;
 
                 @Override
                 public boolean hasNext() {
-                    if (rate.length() + count < rateLenght) {
+                    if ((rate.length() + count) < rateLength) {
                         count++;
                         return true;
-                    }
-                    return false;
-
+                    }else return false;
                 }
 
                 @Override
@@ -71,7 +69,11 @@ public class Prettier {
             });
         }
         else {
-            return rate.substring(0, rateLenght);
+            return rate.substring(0, rateLength);
         }
+
+        }
+        else return "---";
+
     }
 }
